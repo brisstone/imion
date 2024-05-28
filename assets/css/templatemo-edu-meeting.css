@@ -257,8 +257,9 @@ header
 }
 
 .background-header {
-  background-color: #fff!important;
+  /* background-color: red!important; */
   height: 80px!important;
+  color: white;
   position: fixed!important;
   top: 0!important;
   left: 0;
@@ -284,7 +285,8 @@ header
 }
 
 .header-area {
-  background-color: rgba(250,250,250,0.15);
+  /* background-color: rgba(250,250,250,0.15); */
+  background-color: #312784;
   position: absolute;
   top: 40px;
   left: 0;
