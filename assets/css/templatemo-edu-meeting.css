@@ -969,6 +969,10 @@ section.upcoming-meetings .categories .main-button-red a {
   text-align: center;
 }
 
+.tbc_cap{
+  color: #1842b6 !important;
+  font-size: 30px !important;
+}
 .meeting-item {
   margin-bottom: 30px;
   /* border: 2px solid red; */
@@ -1523,7 +1527,7 @@ heading page
 
 section.heading-page {
   
-  /* background-image: url(../images/nav/cover_event.jpeg); */
+  background-image: url(../images/nav/cover_event.jpeg);
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
