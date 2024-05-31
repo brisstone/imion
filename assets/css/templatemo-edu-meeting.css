@@ -1527,7 +1527,7 @@ heading page
 
 section.heading-page {
   
-  background-image: url(../images/nav/cover_event.jpeg);
+  background-image: url(../images/nav/courses_ng.webp);
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -1541,7 +1541,7 @@ section.heading-page h6 {
   font-size: 15px;
   text-transform: uppercase;
   font-weight: 600;
-  color: #1842b6;
+  color: #FFFFFF;
   letter-spacing: 1px;
 }
 
@@ -1551,7 +1551,7 @@ section.heading-page h2 {
   font-size: 36px;
   text-transform: uppercase;
   font-weight: 800;
-  color: #1842b6;;
+  color: #FFFFFF;;
   letter-spacing: 1px;
 }
 
