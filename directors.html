@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manage Directors</title>
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link href="assets/css/custom.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="container mt-5">
+      <div class="d-flex justify-content-between mb-3">
+        <h2>Directors List</h2>
+        <button
+          class="btn btn-primary"
+          data-toggle="modal"
+          data-target="#directorModal"
+        >
+          Add Director
+        </button>
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Position</th>
+          </tr>
+        </thead>
+        <tbody id="directorsTable">
+          <!-- Directors will be added here -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Modal for Adding Director -->
+    <div
+      class="modal fade"
+      id="directorModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="directorModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="directorModalLabel">Add Director</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="addDirectorForm">
+              <div class="form-group">
+                <label for="directorImage">Image</label>
+                <input
+                  type="file"
+                  class="form-control-file"
+                  id="directorImage"
+                />
+              </div>
+              <div class="form-group">
+                <label for="directorName">Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="directorName"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="directorPosition">Position</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="directorPosition"
+                  required
+                />
+              </div>
+              <button type="submit" class="btn btn-primary">Save</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="assets/js/directors.js"></script>
+  </body>
+  <script>
+    document
+      .getElementById("addDirectorForm")
+      .addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const name = document.getElementById("directorName").value;
+        const position = document.getElementById("directorPosition").value;
+        const imageFile = document.getElementById("directorImage").files[0];
+        const imageUrl = URL.createObjectURL(imageFile);
+
+        const table = document.getElementById("directorsTable");
+        const row = table.insertRow();
+        const cell1 = row.insertCell(0);
+        const cell2 = row.insertCell(1);
+        const cell3 = row.insertCell(2);
+
+        cell1.innerHTML = `<img src="${imageUrl}" style="width: 50px; height: 50px;" alt="Director">`;
+        cell2.textContent = name;
+        cell3.textContent = position;
+
+        // Reset form and hide modal
+        document.getElementById("addDirectorForm").reset();
+        $("#directorModal").modal("hide");
+      });
+  </script>
+</html>
