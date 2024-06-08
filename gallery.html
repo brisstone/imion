@@ -233,7 +233,8 @@
         const colDiv = document.createElement('div');
         colDiv.className = 'col-md-4 mb-4';
         const img = document.createElement('img');
-        img.src = `assets/images/gallery/ga_${i.toString().padStart(2, '0')}.JPG`;
+        console.log(`${i.toString().padStart(2, '0')}`, "NAVY_JAY")
+        img.src = `assets/images/gallery/ga_${i.toString().padStart(2, '0')}.jpg`;
         img.className = 'img-fluid';
         img.alt = `Gallery Image ${i}`;
         img.loading = 'lazy'; 
