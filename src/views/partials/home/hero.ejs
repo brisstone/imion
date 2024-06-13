@@ -1,0 +1,70 @@
+<section class="section main-banner" id="top" data-section="section1">
+    <video autoplay muted loop id="bg-video">
+        <!-- <source src="assets/images/course-video.mp4" type="video/mp4" /> -->
+        <source src="/assets//videos/videpo_22.mp4" type="video/mp4">
+
+    </video>
+
+    <div class="video-overlay header-text">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+
+                    <div class="caption">
+                        <h6>WELCOME TO</h6>
+                        <% if ( heroContent.title_one) { %>
+                            <h2>
+                                <%= heroContent.title_one %>
+                            </h2>
+                            <% } else { %>
+                                <h2>
+                                    INTERNATIONAL MARITIME @@
+                                </h2>
+                                <% } %>
+
+                                    <% if ( heroContent.title_two) { %>
+                                        <h2>
+                                            <%= heroContent.title_two %>
+                                        </h2>
+                                        <% } else { %>
+                                            <h2>
+                                                INSTITUTE OF NIGERIA
+                                            </h2>
+                                            <% } %>
+
+                                                <p style="text-align: justify;">
+                                                    <% if ( heroContent.content) { %>
+                                                        <%= heroContent.content %>
+
+                                                            <% } else { %>
+                                                                The institute is established as a
+                                                                think-tank
+                                                                research and
+                                                                policy
+                                                                advocacy
+                                                                institute that would complement government agencies
+                                                                involved in the
+                                                                maritime
+                                                                sector by mobilising maritime experts to assist and
+                                                                support in
+                                                                maritime policy
+                                                                planning and implementation through free exchange of
+                                                                ideas on
+                                                                maritime-related
+                                                                matters. TEST
+                                                                <% } %>
+
+
+                                                </p>
+                                                <div class="main-button">
+                                                    <div class="scroll-to-section"><a href="#contact">Join Us Now!</a>
+                                                    </div>
+
+                                                </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
