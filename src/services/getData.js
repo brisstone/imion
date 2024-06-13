@@ -4,7 +4,7 @@ import ObjectiveContent from "../models/ObjectiveContent.model.js";
 import { servicesData } from "../data/servicesData.js";
 import { objectiveData } from "../data/objectiveData.js";
 
-export const getHomeData = async () => {
+export const getData = async () => {
   try {
     const heroContent = await HeroContent.findOne({}).limit(1);
     const services = await ServiceContent.find({});

@@ -1,9 +1,8 @@
-import HeroContent from "../models/HeroContent.model.js";
-import { getHomeData } from "../services/getHomeData.js";
+import { getData } from "../services/getData.js";
 
 export const home = async (req, res) => {
   try {
-    const data = await getHomeData();
+    const data = await getData();
     console.log(data);
     res.render("../src/views/pages/index.ejs", {
       pageTitle: "Home App",
