@@ -23,16 +23,16 @@ Table of contents
 12. portfolio
 
 --------------------------------------------- */
-/* 
+/*
 ---------------------------------------------
 font & reset css
---------------------------------------------- 
+---------------------------------------------
 */
 @import url("https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900");
-/* 
+/*
 ---------------------------------------------
 reset
---------------------------------------------- 
+---------------------------------------------
 */
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, div
 pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q,
@@ -118,10 +118,10 @@ img {
   overflow: hidden;
 }
 
-/* 
+/*
 ---------------------------------------------
 global styles
---------------------------------------------- 
+---------------------------------------------
 */
 html,
 body {
@@ -203,7 +203,7 @@ body {
 .section-heading h2 {
   line-height: 40px;
   margin-top: 0px;
-  margin-bottom: 50px; 
+  margin-bottom: 50px;
   padding-bottom: 20px;
   border-bottom: 1px solid rgba(250,250,250,0.15);
   font-size: 22px;
@@ -213,10 +213,10 @@ body {
 }
 
 
-/* 
+/*
 ---------------------------------------------
 header
---------------------------------------------- 
+---------------------------------------------
 */
 
 .sub-header {
@@ -268,12 +268,12 @@ header
 }
 
 .background-header .main-nav .nav li a {
-  color: #413E74!important;
+  color: #dedee0!important;
 }
 
 .background-header .logo,
 .background-header .main-nav .nav li a {
-  color: #413E74!important;
+  color: #e9e8ee!important;
 }
 
 .background-header .main-nav .nav li:hover a {
@@ -696,10 +696,10 @@ header
 }
 
 
-/* 
+/*
 ---------------------------------------------
 banner
---------------------------------------------- 
+---------------------------------------------
 */
 
 .main-banner {
@@ -810,7 +810,7 @@ services
 }
 
 .services .item:hover {
-  transform: scale(1.08); 
+  transform: scale(1.08);
   border-radius: 20px;
 }
 
@@ -839,7 +839,7 @@ services
   top: 50%;
   transform: translateY(-25px);
 }
-    
+
 .services .owl-nav .owl-prev{
   margin-right: 10px;
   outline: none;
@@ -1005,7 +1005,7 @@ section.upcoming-meetings .categories .main-button-red a {
   background-color: rgba(250,250,250,0.9);
   padding: 7px 12px;
   border-radius: 10px;
- 
+
 }
 
 .meeting-item .down-content {
@@ -1159,10 +1159,10 @@ section.apply-now .item p {
 }
 
 
-/* 
+/*
 ---------------------------------------------
 courses
---------------------------------------------- 
+---------------------------------------------
 */
 
 section.our-courses {
@@ -1183,7 +1183,7 @@ section.our-courses {
   padding: 25px;
   font-size: 18px;
   color: #1f272b;
-  text-align: center; 
+  text-align: center;
   border-bottom: 1px solid #eee;
 }
 
@@ -1240,7 +1240,7 @@ section.our-courses {
   height: 8px;
   border-radius: 4px;
 }
-    
+
 .our-courses .owl-nav .owl-prev{
   margin-right: 10px;
   outline: none;
@@ -1342,7 +1342,7 @@ section.our-facts h2 {
   border-radius: 20px;
   padding: 25px 30px 35px 30px;
   margin: 15px 0px;
-  
+
 }
 
 .percentage .count-digit:after {
@@ -1383,10 +1383,10 @@ section.our-facts .video img {
 }
 
 
-/* 
+/*
 ---------------------------------------------
 contact us
---------------------------------------------- 
+---------------------------------------------
 */
 
 section.contact-us {
@@ -1526,7 +1526,7 @@ heading page
 */
 
 section.heading-page {
-  
+
   background-image: url(../images/nav/courses_ng.webp);
   background-position: center center;
   background-repeat: no-repeat;
@@ -1537,7 +1537,7 @@ section.heading-page {
 }
 
 section.heading-page2 {
-  
+
   /* background-image: url(../images/nav/courses_ng.webp); */
   background-position: center center;
   background-repeat: no-repeat;
@@ -1779,10 +1779,10 @@ section.meetings-page .pagination ul li a:hover {
 	}
 }
 
-/* 
+/*
 ---------------------------------------------
 responsive
---------------------------------------------- 
+---------------------------------------------
 */
 
 @media (max-width: 1300px) {
@@ -2029,7 +2029,7 @@ responsive
   color: var(--bs-white);
   font-size: 18px;
   outline: none;
-  
+
 }
 
 .navbar .navbar-nav .nav-link:hover,
@@ -2181,7 +2181,7 @@ responsive
   .carousel-item {
       min-height: 500px;
   }
-  
+
   .carousel-item img {
       min-height: 500px;
       object-fit: cover;
@@ -2200,7 +2200,7 @@ responsive
   .carousel-item {
       min-height: 400px;
   }
-  
+
   .carousel-item img {
       min-height: 400px;
       object-fit: cover;
@@ -2373,7 +2373,7 @@ responsive
   position: absolute;
   top: 6px;
   left: -140px;
-  
+
 }
 
 .blog-btn-icon:hover .blog-icon-2 {
