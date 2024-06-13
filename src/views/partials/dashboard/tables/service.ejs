@@ -31,8 +31,39 @@
                                 <button type="button" data-bs-toggle="modal" data-bs-target="#<%= index+1 %>"
                                     class="btn btn-outline-info btn-rounded" type="button"><i
                                         class="fas fa-pen"></i></button>
-                                <a href="" class="btn btn-outline-danger btn-rounded"><i class="fas fa-trash"></i></a>
-                                <div class="modal fade" id="<%= index+1%>" data-bs-backdrop="static"
+                                <a class="btn btn-outline-danger btn-rounded" type="button" data-bs-toggle="modal"
+                                    data-bs-target="#<%= index+200 %>"><i class="fas fa-trash"></i></a>
+
+                                <!-- delete modal -->
+                                <div class="modal fade" id="<%= index+200%>" data-bs-backdrop="static"
+                                    data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog modal-md">
+                                        <div class="modal-content">
+                                            <div class="modal-header float-start">
+                                                <h1 class="modal-title fs-5 " id="staticBackdropLabel">
+                                                    <%= service.title %>
+                                                </h1>
+
+                                            </div>
+                                            <form action="/delete-service" method="POST"
+                                                class="modal-body flex-row justify-content-center" id="delete">
+                                                <input type="hidden" name="_id" value="<%= service._id %>">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-danger">
+                                                    DELETE
+                                                </button>
+
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- end delete modal -->
+                                <!-- update modal -->
+                                <div class="modal fade delete" id="<%= index+1%>" data-bs-backdrop="static"
                                     data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
                                     aria-hidden="true">
                                     <div class="modal-dialog">
@@ -82,8 +113,26 @@
                                             body: formData,
                                         });
                                         if (response.ok) {
-                                            $('#staticBackdrop').modal(`${index + 1}`);
-                                            // location.reload();
+                                            event.target.reset();
+                                            $('#staticBackdrop').modal('hide');
+                                            location.reload();
+                                        }
+                                    } catch (error) {
+                                        console.error('Error submitting the form:', error);
+                                    }
+                                });
+                                document.getElementById(`${index + 200}`).addEventListener('submit', async (event) => {
+                                    event.preventDefault();
+                                    const formData = new FormData(event.target);
+                                    try {
+                                        const response = await fetch('/delete-service', {
+                                            method: 'POST',
+                                            body: formData,
+                                        });
+                                        if (response.ok) {
+                                            event.target.reset();
+                                            $('#staticBackdrop').modal('hide');
+                                            location.reload();
                                         }
                                     } catch (error) {
                                         console.error('Error submitting the form:', error);
@@ -149,6 +198,7 @@
                 body: formData,
             });
             if (response.ok) {
+                event.target.reset();
                 $('#staticBackdrop').modal('hide');
                 location.reload();
             }

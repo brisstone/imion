@@ -62,7 +62,6 @@ export const createService = async (req, res) => {
 
       upload.mv(`public/${icon}`, async (err) => {
         if (err) {
-          console.error(err);
           return res.status(500).send("File upload failed.");
         }
       });
@@ -91,19 +90,17 @@ export const createService = async (req, res) => {
 };
 
 export const deleteService = async (req, res) => {
-  const { id } = req.params;
-
+  const { _id } = req.body;
   try {
-    const service = await ServiceContent.findById(id);
+    const service = await ServiceContent.findById(_id);
 
     if (!service) {
       return res.status(404).send("Service not found.");
     }
     if (service.icon) {
-      const filePath = path.join(__dirname, `../public/${service.icon}`);
-      fs.unlinkSync(filePath);
+      fs.unlinkSync(`public/${service.icon}`);
     }
-    await ServiceContent.findByIdAndDelete(id);
+    await ServiceContent.findByIdAndDelete(_id);
     return res.status(204).send();
   } catch (error) {
     console.error(error);
