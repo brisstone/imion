@@ -12,6 +12,7 @@ import {
   dashboard,
   heroContent,
   createService,
+  deleteService,
 } from "../controllers/dashboard.js";
 
 const isAuthenticated = (req, res, next) => {
@@ -31,6 +32,7 @@ router.get("/register", registerView);
 router.post("/register", register);
 router.get("/dashboard", isAuthenticated, dashboard);
 router.post("/create-service", isAuthenticated, createService);
+router.post("/delete-service", isAuthenticated, deleteService);
 router.post("/hero-content", isAuthenticated, heroContent);
 
 export default router;
