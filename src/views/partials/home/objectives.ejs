@@ -1,0 +1,129 @@
+<!-- <section class="apply-now" id="apply">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 align-self-center">
+                <div class="row">
+
+
+                    <div class="col-lg-12">
+                        <div class="item">
+                            <h3>OBJECTIVE</h3>
+                            <p>The objective of the IMION is to improve governance of Nigeria’s maritime area of
+                                interest
+                                through
+                                the conduct
+                                of the following activities:
+                                </br> &#8226;&nbsp;&nbsp; Research and Benchmarking.
+                                &#8226;&nbsp;&nbsp; Collaboration and Partnerships.
+                                &#8226;&nbsp;&nbsp; Capacity Building.
+                                &#8226;&nbsp;&nbsp; Knowledge Management.
+                                &#8226;&nbsp;&nbsp; Engagement with Industry and Stakeholders.
+                                &#8226;&nbsp;&nbsp; Policy Advocacy and Implementation.
+                            </p>
+                            <div class="main-button-yellow">
+                                <div class="scroll-to-section"><a href="#contact">Read More</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="item">
+                            <h3>KNOWLEDGE MANAGEMENT</h3>
+                            <p>The objective of knowledge management is to concretise the process of identifying,
+                                organising,
+                                storing, and disseminating maritime policy and strategies within the national maritime
+                                ecosystem
+                                and
+                                beyond. Essentially this would be aimed at capturing, sharing and promoting the
+                                effective
+                                usage
+                                of
+                                maritime hindsight, insights and foresight in a coordinated and productive manner.
+                            </p>
+                            <div class="main-button-yellow">
+                                <div class="scroll-to-section"><a href="#contact">Join Us Now!</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 align-self-center">
+                <div class="col-lg-12">
+                    <div class="item">
+                        <h3>APPLY FOR INSTITUTE RESEARCH PROGRAMME</h3>
+                        <p>Embark on a journey of discovery by applying for our prestigious Institute Research
+                            Programme.
+                            Join
+                            a
+                            community of innovative scholars dedicated to advancing knowledge and making impactful
+                            contributions
+                            to your field.
+
+                            The growth of the global maritime industry recognised the need for skilled
+                            professionals who can contribute effectively to the development of maritime
+                            sector.
+
+                        </p>
+                        <div class="main-button-red">
+                            <div class="scroll-to-section"><a href="#contact">Join Us Now!</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="item">
+                            <h3>CAPACITY BUILDING</h3>
+                            <p>The objective of capacity building is to develop and strengthen the skills, abilities,
+                                instincts
+                                and
+                                resources that maritime industries in the GoG require to survive, adapt and thrive in
+                                maritime-related
+                                duties, especially in this fast-changing world. Pointedly, the essence is for an
+                                improvement
+                                in
+                                the
+                                maritime policy landscape towards building collective abilities to be more productive
+                                and
+                                perform
+                                better, through learning, adaptation and applicability. </p>
+                            <div class="main-button-red">
+                                <div class="scroll-to-section"><a href="#contact">Read More</a></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section> -->
+
+
+<section class="apply-now" id="apply">
+    <div class="container">
+        <div class="row">
+            <% objectiveContent.forEach(function(item) { %>
+                <div class="col-lg-6 align-self-center">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="item">
+                                <h3>
+                                    <%= item.title %>
+                                </h3>
+                                <p>
+                                    <%= item.description %>
+                                </p>
+                                <div class="<%= item.buttonColor ? 'main-button-red' : 'main-button-yellow' %>">
+                                    <div class="scroll-to-section">
+                                        <a href="<%= item.buttonLink %>">
+                                            <%= item.buttonLabel %>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <% }); %>
+        </div>
+    </div>
+</section>

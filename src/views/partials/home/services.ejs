@@ -1,0 +1,112 @@
+<!-- <section class="services">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="owl-service-item owl-carousel">
+
+                    <div class="item">
+                        <div class="icon">
+                            <img src="assets/images/service-icon-01.png" alt="">
+                        </div>
+                        <div class="down-content">
+                            <h4>
+                                Research and Benchmarking.</h4>
+                            <p>It’s a valuable tool for evaluating performance, identifying
+                                best practices and uncovering opportunities for improvement.</p>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <div class="icon">
+                            <img src="assets/images/service-icon-02.png" alt="">
+                        </div>
+                        <div class="down-content">
+                            <h4>Collaboration and Partnerships.</h4>
+                            <p>To create mechanisms for working together with others in
+                                the maritime ecosystem to achieve a common goal.</p>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <div class="icon">
+                            <img src="assets/images/service-icon-03.png" alt="">
+                        </div>
+                        <div class="down-content">
+                            <h4>Capacity Building.</h4>
+                            <p>An improvement in the maritime policy landscape towards building
+                                collective abilities to be more productive and perform better.</p>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <div class="icon">
+                            <img src="assets/images/service-icon-02.png" alt="">
+                        </div>
+                        <div class="down-content">
+                            <h4>Knowledge Management.</h4>
+                            <p>Aimed at capturing, sharing
+                                and promoting the effective usage of maritime hindsight, insights and
+                                foresight in a coordinated and productive manner.</p>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <div class="icon">
+                            <img src="assets/images/service-icon-03.png" alt="">
+                        </div>
+                        <div class="down-content">
+                            <h4>Engagement with Industry & Stakeholders.</h4>
+                            <p>
+                                Aimed at knowing who the
+                                stakeholders are, towards understanding their interests.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <div class="icon">
+                            <img src="assets/images/service-icon-03.png" alt="">
+                        </div>
+                        <div class="down-content">
+                            <h4>Policy Advocacy & Implementation.</h4>
+                            <p>To create a mechanism towards engaging in
+                                social decision-making processes or policy proposals in the
+                                maritime environment.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section> -->
+
+<!-- DYNAMIC -->
+<section class="services">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="owl-service-item owl-carousel">
+
+                    <% serviceContent.forEach(service=> { %>
+                        <div class="item">
+                            <div class="icon">
+                                <img src="<%= service.icon %>" alt="<%= service.title %>">
+                            </div>
+                            <div class="down-content">
+                                <h4>
+                                    <%= service.title %>
+                                </h4>
+                                <p>
+                                    <%= service.description %>
+                                </p>
+                            </div>
+                        </div>
+                        <% }); %>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
