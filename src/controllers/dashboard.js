@@ -111,30 +111,35 @@ export const deleteService = async (req, res) => {
 };
 
 export const createObject = async (req, res) => {
+  console.log(req.body);
   const user = req.session.user;
   try {
-    const { title, description, buttonLabel, buttonLink, buttonColor, _id } =
-      req.body;
+    const { title, description, buttonLabel, buttonLink, _id } = req.body;
 
-    if (_id !== "") {
+    const buttonColor = req.body.buttonColor === "on" ? true : false;
+
+    if (_id !== "" && _id !== undefined) {
+      console.log("update");
       await ObjectiveContent.findByIdAndUpdate(
         _id,
         { title, description, buttonLabel, buttonLink, buttonColor },
         { new: true }
       );
     } else {
-      const hero = new HeroContent({
+      console.log("create");
+      const object = new ObjectiveContent({
         title,
         description,
         buttonLabel,
         buttonLink,
         buttonColor,
       });
-      await hero.save();
+      console.log(object);
+      await object.save();
     }
     await renderDashboard(res, user);
   } catch (error) {
-    console.error(error);
+    console.log(error);
     res.status(500).send("Internal server error.");
   }
 };
