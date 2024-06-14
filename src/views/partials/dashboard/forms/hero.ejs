@@ -1,56 +1,52 @@
 <div class="col-lg-5">
-    <div class="card">
-        <div class="card-header">Hero Content</div>
-        <div class="card-body">
-            <h5 class="card-title">Hero content on the home page
-            </h5>
-            <form id="hero-content-form" method="post">
-                <input type="hidden" name="_id" value="<%= heroContent._id %>">
-                <div class="mb-3">
-                    <label for="title_one" class="form-label">Title one</label>
-                    <input type="text" name="title_one" placeholder="Title One" value="<%= heroContent.title_one %>"
-                        class="form-control" required>
-                </div>
-                <div class="mb-3">
-                    <label for="title_two" class="form-label">Title two</label>
-                    <input type="text" name="title_two" placeholder="Title Two" value="<%= heroContent.title_two %>"
-                        class="form-control" required>
-                </div>
-                <div class="mb-3">
-                    <label for="content" class="form-label">Description</label>
-                    <textarea class="form-control" id="content" rows="6"
-                        name="content"><%= heroContent.content %></textarea>
-
-                </div>
-                <div class="mb-3">
-                    <button type="submit" class="btn btn-primary">
-
-                        <%= (heroContent._id !=='' ) ? 'UPDATE' : 'CREATE' %>
-                    </button>
-                </div>
-            </form>
+  <div class="card">
+    <div class="card-header">Hero Content</div>
+    <div class="card-body">
+      <h5 class="card-title">Hero content on the home page
+      </h5>
+      <form id="hero-content-form" method="post">
+        <input type="hidden" name="_id" value="<%= heroContent._id %>">
+        <div class="mb-3">
+          <label for="title_one" class="form-label">Title one</label>
+          <input type="text" name="title_one" placeholder="Title One" value="<%= heroContent[0].title_one %>" class="form-control" required>
         </div>
+        <div class="mb-3">
+          <label for="title_two" class="form-label">Title two</label>
+          <input type="text" name="title_two" placeholder="Title Two" value="<%= heroContent[0].title_two %>" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label for="content" class="form-label">Description</label>
+          <textarea class="form-control" id="content" rows="6" name="content"><%= heroContent[0].content %></textarea>
+
+        </div>
+        <div class="mb-3">
+          <button type="submit" class="btn btn-primary">
+            <%= (heroContent._id !=='' ) ? 'UPDATE' : 'CREATE' %>
+          </button>
+        </div>
+      </form>
     </div>
+  </div>
 </div>
 
 <script>
-    document.getElementById('hero-content-form').addEventListener('submit', async (event) => {
-        event.preventDefault();
-        const formData = new FormData(event.target);
-        try {
-            const response = await fetch('/hero-content', {
-                method: 'POST',
-                body: formData,
-            });
+  document.getElementById('hero-content-form').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    try {
+      const response = await fetch('/hero-content', {
+        method: 'POST',
+        body: formData,
+      });
 
-            if (response.ok) {
-                console.log('Form submitted successfully');
+      if (response.ok) {
+        console.log('Form submitted successfully');
 
-            } else {
-                console.error('Error submitting the form');
-            }
-        } catch (error) {
-            console.error('Error submitting the form:', error);
-        }
-    });
+      } else {
+        console.error('Error submitting the form');
+      }
+    } catch (error) {
+      console.error('Error submitting the form:', error);
+    }
+  });
 </script>

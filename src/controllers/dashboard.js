@@ -270,7 +270,7 @@ export const deleteGoverning = async (req, res) => {
     if (!governing) {
       return res.status(404).send("Trustee not found.");
     }
-    if (trustee.imageUrl) {
+    if (governing.imageUrl) {
       fs.unlinkSync(`public/${governing.imageUrl}`);
     }
     await GoverningContent.findByIdAndDelete(_id);

@@ -1,15 +1,18 @@
 import { getData } from "../services/getData.js";
+import { contactForm, contactInfo } from "../data/contactForm.js";
 
 export const home = async (req, res) => {
   try {
     const data = await getData();
-    console.log(data);
+    // console.log(data.heroContent);
     res.render("../src/views/pages/index.ejs", {
       pageTitle: "Home App",
       ...data,
+      contactForm,
+      contactInfo,
     });
   } catch (error) {
-    res.satus(500).send({ message: error.message || "Error Occured" });
+    res.status(500).send({ message: error.message || "Error Occured" });
   }
 };
 
@@ -19,6 +22,6 @@ export const about = async (req, res) => {
       pageTitle: "About Us",
     });
   } catch (error) {
-    res.satus(500).send({ message: error.message || "Error Occured" });
+    res.status(500).send({ message: error.message || "Error Occured" });
   }
 };

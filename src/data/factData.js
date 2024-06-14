@@ -1,4 +1,4 @@
-export const facts = [
+export const factsData = [
   {
     title: "Board",
     value: 20,
