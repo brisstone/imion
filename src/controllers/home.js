@@ -4,7 +4,6 @@ import { contactForm, contactInfo } from "../data/contactForm.js";
 export const home = async (req, res) => {
   try {
     const data = await getData();
-    // console.log(data.heroContent);
     res.render("../src/views/pages/index.ejs", {
       pageTitle: "Home App",
       ...data,
@@ -20,6 +19,28 @@ export const about = async (req, res) => {
   try {
     res.render("../src/views/pages/about.ejs", {
       pageTitle: "About Us",
+    });
+  } catch (error) {
+    res.status(500).send({ message: error.message || "Error Occured" });
+  }
+};
+
+export const gallery = async (req, res) => {
+  try {
+    res.render("../src/views/pages/gallery.ejs", {
+      pageTitle: "Gallery",
+    });
+  } catch (error) {
+    res.status(500).send({ message: error.message || "Error Occured" });
+  }
+};
+
+export const contact = async (req, res) => {
+  try {
+    const data = await getData();
+    res.render("../src/views/pages/contact.ejs", {
+      pageTitle: "Contact",
+      ...data,
     });
   } catch (error) {
     res.status(500).send({ message: error.message || "Error Occured" });

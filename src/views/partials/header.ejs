@@ -2,45 +2,8 @@
   <div class="container">
     <div class="row">
       <div class="col-12">
-        <nav class="main-nav">
-
-          <a href="/"> <img style="width: 140px; height: 80px" src="assets/images/logoNew.png" alt="logo" />
-          </a>
-          <ul class="nav">
-            <li><a href="/" data-url="/">Home</a></li>
-            <li><a href="/about" data-url="/about">About Us</a></li>
-            <!-- <li class="has-sub">
-                            <a data-url="/event">Events</a>
-                            <ul class="sub-menu">
-                                <li><a href="/event" data-url="/event">Upcoming Events</a></li>
-                                <li><a href="/event-details" data-url="/event-details">Events Details</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="/courses" data-url="/courses">Programmes</a></li> -->
-            <li><a href="/gallery" data-url="/gallery">Gallery</a></li>
-            <li><a href="/contact" data-url="/contact">Contact Us</a></li>
-          </ul>
-
-          <a class='menu-trigger'>
-            <span>Menu</span>
-          </a>
-          <!-- ***** Menu End ***** -->
-        </nav>
+        <%- include('./navbar.ejs') %>
       </div>
     </div>
   </div>
 </header>
-
-<script>
-  const currentUrl = window.location.pathname;
-  const navLinks = document.querySelectorAll('.nav a');
-
-  navLinks.forEach(link => {
-    const linkUrl = link.getAttribute('data-url');
-    if (currentUrl === linkUrl) {
-      link.classList.add('active');
-    } else {
-      link.classList.remove('active');
-    }
-  });
-</script>

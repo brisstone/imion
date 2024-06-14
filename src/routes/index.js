@@ -1,6 +1,6 @@
 import express from "express";
 const router = express.Router();
-import { home, about } from "../controllers/home.js";
+import { home, about, gallery, contact } from "../controllers/home.js";
 import {
   loginView,
   login,
@@ -32,6 +32,8 @@ const isAuthenticated = (req, res, next) => {
 
 router.get("/", home);
 router.get("/about", about);
+router.get("/gallery", gallery);
+router.get("/contact", contact);
 router.get("/login", loginView);
 router.post("/login", login);
 router.get("/logout", logout);
