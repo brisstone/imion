@@ -13,6 +13,8 @@ import {
   heroContent,
   createService,
   deleteService,
+  createObject,
+  deleteObject,
 } from "../controllers/dashboard.js";
 
 const isAuthenticated = (req, res, next) => {
@@ -34,5 +36,8 @@ router.get("/dashboard", isAuthenticated, dashboard);
 router.post("/create-service", isAuthenticated, createService);
 router.post("/delete-service", isAuthenticated, deleteService);
 router.post("/hero-content", isAuthenticated, heroContent);
+
+router.post("/create-objective", isAuthenticated, createObject);
+router.post("/delete-objective", isAuthenticated, deleteObject);
 
 export default router;

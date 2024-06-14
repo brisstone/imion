@@ -1,9 +1,9 @@
-<div class="col-lg-7">
+<div class="col-lg-12">
     <div class="page-title">
-        <h3>Services
+        <h3>Home Page Objectives
             <button class="btn btn-outline-primary float-end " type="button" data-bs-toggle="modal"
-                data-bs-target="#staticBackdrop"><i class="fas fa-plus"></i>
-                New service</button>
+                data-bs-target="#createObjective"><i class="fas fa-plus"></i>
+                New Objective</button>
         </h3>
     </div>
     <div class="box box-primary">
@@ -13,42 +13,50 @@
                     <tr>
                         <th>Title</th>
                         <th>Description</th>
+                        <th>Label</th>
+                        <th>Link To</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
 
-                    <% serviceContent.forEach((service, index)=> { %>
+                    <% objectiveContent.forEach((objective, index)=> { %>
                         <tr>
                             <td>
-                                <%= service.title %>
+                                <%= objective.title %>
 
                             </td>
                             <td>
-                                <%= service.description %>
+                                <%= objective.description %>
+                            </td>
+                            <td>
+                                <%= objective.buttonLabel %>
+                            </td>
+                            <td>
+                                <%= objective.buttonLink %>
                             </td>
                             <td class="text-end ">
-                                <button type="button" data-bs-toggle="modal" data-bs-target="#<%= index+1 %>"
+                                <button type="button" data-bs-toggle="modal" data-bs-target="#<%= index+300 %>"
                                     class="btn btn-outline-info btn-rounded" type="button"><i
                                         class="fas fa-pen"></i></button>
                                 <a class="btn btn-outline-danger btn-rounded" type="button" data-bs-toggle="modal"
-                                    data-bs-target="#<%= index+200 %>"><i class="fas fa-trash"></i></a>
+                                    data-bs-target="#<%= index+400 %>"><i class="fas fa-trash"></i></a>
 
                                 <!-- delete modal -->
-                                <div class="modal fade" id="<%= index+200%>" data-bs-backdrop="static"
+                                <div class="modal fade" id="<%= index+400%>" data-bs-backdrop="static"
                                     data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
                                     aria-hidden="true">
                                     <div class="modal-dialog modal-md">
                                         <div class="modal-content">
                                             <div class="modal-header float-start">
                                                 <h1 class="modal-title fs-5 " id="staticBackdropLabel">
-                                                    <%= service.title %>
+                                                    <%= objective.title %>
                                                 </h1>
 
                                             </div>
-                                            <form action="/delete-service" method="POST"
+                                            <form action="/delete-objective" method="POST"
                                                 class="modal-body flex-row justify-content-center" id="delete">
-                                                <input type="hidden" name="_id" value="<%= service._id %>">
+                                                <input type="hidden" name="_id" value="<%= objective._id %>">
                                                 <button type="button" class="btn btn-secondary"
                                                     data-bs-dismiss="modal">Close</button>
                                                 <button type="submit" class="btn btn-danger">
@@ -63,38 +71,63 @@
 
                                 <!-- end delete modal -->
                                 <!-- update modal -->
-                                <div class="modal fade delete" id="<%= index+1%>" data-bs-backdrop="static"
+                                <div class="modal fade " id="<%= index+300%>" data-bs-backdrop="static"
                                     data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
                                     aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h1 class="modal-title fs-5" id="staticBackdropLabel">
-                                                    Update : <%= service.title %>
+                                                    <%= objective.title %>
                                                 </h1>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <form action="/create-service" method="POST">
-                                                    <input type="hidden" name="_id" value="<%= service._id %>">
+                                                <form action="/create-objective" method="POST">
+                                                    <input type="hidden" name="_id" value="<%= objective._id %>">
                                                     <div class="mb-3">
                                                         <label for="title" class="form-label float-start">Title</label>
                                                         <input type="text" name="title" placeholder="Title"
-                                                            value="<%= service.title %>" class="form-control" required>
+                                                            value="<%= objective.title %>" class="form-control"
+                                                            required>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="buttonLabel"
+                                                            class="form-label float-start">Label</label>
+                                                        <input value="<%= objective.buttonLabel %>" type="text"
+                                                            name="buttonLabel" placeholder="Enter button label"
+                                                            class="form-control" required>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="buttonLink" class="form-label float-start">Link
+                                                            To</label>
+                                                        <input type="text" name="buttonLink"
+                                                            placeholder="Enter Link reference" class="form-control"
+                                                            value="<%= objective.buttonLink %>">
+                                                    </div>
+
+                                                    <div class="form-check form-switch  mb-3">
+                                                        <input class="form-check-input" type="checkbox" role="switch"
+                                                            id="buttonColor" name="buttonColor"
+                                                            checked="<%= objective.buttonColor %>">
+                                                        <label class="form-check-label" for="buttonColor">Default
+                                                            Color</label>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="description"
                                                             class="form-label float-start">Description</label>
-                                                        <textarea class="form-control" id="description" rows="3"
-                                                            name="description"><%= service.description %></textarea>
+                                                        <textarea class="form-control" id="description" rows="4"
+                                                            name="description">
+                                                            value="<%= objective.description %>"
+                                                        </textarea>
 
                                                     </div>
                                                     <div class="mb-3">
                                                         <button type="button" class="btn btn-secondary"
                                                             data-bs-dismiss="modal">Close</button>
                                                         <button type="submit" class="btn btn-primary">
-                                                            <%= (service._id !=='' ) ? 'UPDATE' : 'CREATE' %>
+                                                            UPDATE
                                                         </button>
                                                     </div>
                                                 </form>
@@ -104,11 +137,11 @@
                                 </div>
                             </td>
                             <script>
-                                document.getElementById(`${index + 1}`).addEventListener('submit', async (event) => {
+                                document.getElementById(`${index + 300}`).addEventListener('submit', async (event) => {
                                     event.preventDefault();
                                     const formData = new FormData(event.target);
                                     try {
-                                        const response = await fetch('/create-service', {
+                                        const response = await fetch('/create-objective', {
                                             method: 'POST',
                                             body: formData,
                                         });
@@ -121,11 +154,11 @@
                                         console.error('Error submitting the form:', error);
                                     }
                                 });
-                                document.getElementById(`${index + 200}`).addEventListener('submit', async (event) => {
+                                document.getElementById(`${index + 400}`).addEventListener('submit', async (event) => {
                                     event.preventDefault();
                                     const formData = new FormData(event.target);
                                     try {
-                                        const response = await fetch('/delete-service', {
+                                        const response = await fetch('/delete-objective', {
                                             method: 'POST',
                                             body: formData,
                                         });
@@ -151,29 +184,38 @@
     </div>
 </div>
 
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+<div class="modal fade" id="createObjective" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">Create New Service</h1>
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Create New Objective</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="/create-service" method="POST" id="create-service" enctype="multipart/form-data">
+                <form action="/create-objective" method="POST" id="create-objective">
                     <div class="mb-3">
                         <label for="title" class="form-label float-start">Title</label>
                         <input type="text" name="title" placeholder="Title" class="form-control" required>
                     </div>
                     <div class="mb-3">
-                        <label for="icon" class="form-label float-start">Image</label>
-                        <input type="file" name="icon" placeholder="Upload" value="" class="form-control" required
-                            accept="image/*">
+                        <label for="buttonLabel" class="form-label float-start">Label</label>
+                        <input type="text" name="buttonLabel" placeholder="Enter button label" class="form-control"
+                            required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="buttonLink" class="form-label float-start">Link To</label>
+                        <input type="text" name="buttonLink" placeholder="Enter Link reference" class="form-control">
                     </div>
 
+                    <div class="form-check form-switch  mb-3">
+                        <input class="form-check-input" type="checkbox" role="switch" id="buttonColor"
+                            name="buttonColor">
+                        <label class="form-check-label" for="buttonColor">Default Color</label>
+                    </div>
                     <div class="mb-3">
                         <label for="description" class="form-label float-start">Description</label>
-                        <textarea class="form-control" id="description" rows="3" name="description"></textarea>
+                        <textarea class="form-control" id="description" rows="4" name="description"></textarea>
 
                     </div>
                     <div class="mb-3">
@@ -190,18 +232,18 @@
 </div>
 
 <script>
-    document.getElementById('create-service').addEventListener('submit', async (event) => {
+    document.getElementById('create-objective').addEventListener('submit', async (event) => {
         event.preventDefault();
         const formData = new FormData(event.target);
         try {
-            const response = await fetch('/create-service', {
+            const response = await fetch('/create-objective', {
                 method: 'POST',
                 body: formData,
             });
             if (response.ok) {
 
                 event.target.reset();
-                $('#staticBackdrop').modal('hide');
+                $('#createObjective').modal('hide');
                 location.reload();
             }
         } catch (error) {
