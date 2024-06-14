@@ -15,6 +15,10 @@ import {
   deleteService,
   createObject,
   deleteObject,
+  createTrustee,
+  deleteTrustee,
+  createGoverning,
+  deleteGoverning,
 } from "../controllers/dashboard.js";
 
 const isAuthenticated = (req, res, next) => {
@@ -39,5 +43,11 @@ router.post("/hero-content", isAuthenticated, heroContent);
 
 router.post("/create-objective", isAuthenticated, createObject);
 router.post("/delete-objective", isAuthenticated, deleteObject);
+
+router.post("/create-trustee", isAuthenticated, createTrustee);
+router.post("/delete-trustee", isAuthenticated, deleteTrustee);
+
+router.post("/create-governing", isAuthenticated, createGoverning);
+router.post("/delete-governing", isAuthenticated, deleteGoverning);
 
 export default router;
