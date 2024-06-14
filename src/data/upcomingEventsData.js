@@ -1,4 +1,4 @@
-const upcomingEvents = [
+export const upcomingEvents = [
   {
     title: "Meetings",
     imageUrl: "assets/images/nav/nav_06.jpeg",

@@ -20,6 +20,7 @@ import {
   createGoverning,
   deleteGoverning,
 } from "../controllers/dashboard.js";
+import { contactUs } from "../controllers/contact.js";
 
 const isAuthenticated = (req, res, next) => {
   if (req.session.user) {
@@ -50,4 +51,5 @@ router.post("/delete-trustee", isAuthenticated, deleteTrustee);
 router.post("/create-governing", isAuthenticated, createGoverning);
 router.post("/delete-governing", isAuthenticated, deleteGoverning);
 
+router.post("/contact-form", contactUs);
 export default router;

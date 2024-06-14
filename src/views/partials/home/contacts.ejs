@@ -3,40 +3,14 @@
     <div class="col-lg-9 align-self-center">
       <div class="row">
         <div class="col-lg-12">
-          <form id="contact" action="<%= contactForm.formAction %>" method="<%= contactForm.formMethod %>">
-            <div class="row">
-              <% contactForm.fields.forEach(field => { %>
-              <div class="col-lg-<%= field.type === 'textarea' ? '12' : '4' %>">
-                <fieldset>
-                  <% if (field.type === 'textarea') { %>
-                  <textarea name="<%= field.name %>" id="<%= field.id %>" placeholder="<%= field.placeholder %>" <% if (field.required) { %>required<% } %>></textarea>
-                  <% } else { %>
-                  <input name="<%= field.name %>" type="<%= field.type %>" id="<%= field.id %>" <% if (field.pattern) { %>pattern="<%= field.pattern %>" <% } %> placeholder="<%= field.placeholder %>" <% if (field.required) { %>required<% } %> />
-                  <% } %>
-                </fieldset>
-              </div>
-              <% }) %>
-              <div class="col-lg-12">
-                <fieldset>
-                  <button type="<%= contactForm.submitButton.type %>" id="<%= contactForm.submitButton.id %>" class="<%= contactForm.submitButton.className %>">
-                    <%= contactForm.submitButton.text %>
-                  </button>
-                </fieldset>
-              </div>
-            </div>
-          </form>
-
-
-
-          <!-- <form id="contact" action="" method="post">
+          <form id="contact" action="/contact-form" method="post">
             <div class="row">
               <div class="col-lg-12">
                 <h2>Let's get in touch</h2>
               </div>
               <div class="col-lg-4">
-                <fieldset>
-                  <input name="name" type="text" id="name" placeholder="YOURNAME...*" required="" />
-                </fieldset>
+                <input name="name" type="text" id="name" placeholder="YOURNAME...*" required="" />
+
               </div>
               <div class="col-lg-4">
                 <fieldset>
@@ -61,21 +35,55 @@
                 </fieldset>
               </div>
             </div>
-          </form> -->
+          </form>
         </div>
       </div>
     </div>
+
     <div class="col-lg-3">
       <div class="right-info">
         <ul>
-          <% contactInfo.forEach(info => { %>
           <li>
-            <h6><%= info.title %></h6>
-            <span><%= info.value %></span>
+            <h6>Phone Number</h6>
+            <span><%= InfoContent[0].phone  %></span>
           </li>
-          <% }) %>
+          <li>
+            <h6>Email Address</h6>
+            <span><%= InfoContent[0].email  %></span>
+          </li>
+          <li>
+            <h6>Street Address</h6>
+            <span><%= InfoContent[0].address  %></span>
+          </li>
+          <li>
+            <h6>Website URL</h6>
+            <span><%= InfoContent[0].url  %></span>
+          </li>
         </ul>
       </div>
     </div>
+
   </div>
 </div>
+
+<script>
+  document.getElementById('contact').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    try {
+
+      const response = await fetch('/contact-form', {
+        method: 'POST',
+        body: formData,
+      });
+      if (response.ok) {
+        console.log('Form submitted successfully');
+        event.target.reset();
+        location.reload();
+        alert('Form Submitted');
+      }
+    } catch (error) {
+      return
+    }
+  });
+</script>

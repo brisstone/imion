@@ -8,7 +8,7 @@ import { getData } from "../services/getData.js";
 
 import fs from "fs";
 
-const renderDashboard = async (res, user) => {
+export const renderDashboard = async (res, user) => {
   try {
     const data = await getData();
     return res.render("../src/views/pages/dashboard.ejs", {
@@ -274,6 +274,59 @@ export const deleteGoverning = async (req, res) => {
       fs.unlinkSync(`public/${governing.imageUrl}`);
     }
     await GoverningContent.findByIdAndDelete(_id);
+    await renderDashboard(res, user);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send("Internal server error.");
+  }
+};
+
+export const createEvent = async (req, res) => {
+  const user = req.session.user;
+  const { title, description, imageUrl, month, day, _id } = req.body;
+
+  if (!title || !description || !imageUrl || !month || !day) {
+    return res
+      .status(400)
+      .send("Title, description, imageUrl, month, and day are required.");
+  }
+
+  try {
+    if (_id) {
+      await UpcomingEvent.findByIdAndUpdate(
+        _id,
+        { title, description, imageUrl, month, day },
+        { new: true }
+      );
+    } else {
+      const newEvent = new UpcomingEvent({
+        title,
+        description,
+        imageUrl,
+        month,
+        day,
+      });
+      await newEvent.save();
+    }
+    await renderDashboard(res, user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal server error.");
+  }
+};
+
+export const deleteEvent = async (req, res) => {
+  const { _id } = req.body;
+  const user = req.session.user;
+
+  try {
+    const event = await UpcomingEvent.findById(_id);
+
+    if (!event) {
+      return res.status(404).send("Event not found.");
+    }
+
+    await UpcomingEvent.findByIdAndDelete(_id);
     await renderDashboard(res, user);
   } catch (error) {
     console.error(error);

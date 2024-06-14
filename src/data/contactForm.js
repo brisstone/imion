@@ -40,6 +40,14 @@ export const contactForm = {
   },
 };
 
+export const contactInfoContent = [
+  {
+    phone: "+2348071448323",
+    email: "imion@navy.mil.ng",
+    address: "NNS QUORRA Complex, Harbour Road Apapa Lagos Nigeria.",
+    url: "imion.com.ng",
+  },
+];
 export const contactInfo = [
   {
     title: "Phone Number",

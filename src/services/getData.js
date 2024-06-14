@@ -12,6 +12,10 @@ import FactContent from "../models/FactContent.model.js";
 
 import { factsData } from "../data/factData.js";
 import { heroData } from "../data/heroData.js";
+import { contactInfoContent } from "../data/contactForm.js";
+import ContactInfoContent from "../models/ContactInfoContent.model.js";
+import { upcomingEvents } from "../data/upcomingEventsData.js";
+import UpcomingEventContent from "../models/UpcomingEventContent.model.js";
 
 export const getData = async () => {
   try {
@@ -21,6 +25,8 @@ export const getData = async () => {
     const trustees = await TrusteeContent.find({});
     const governing = await GoverningContent.find({});
     const facts = await FactContent.find({});
+    const info = await ContactInfoContent.find({});
+    const events = await UpcomingEventContent.find({});
 
     const serviceContent = services.length > 0 ? services : servicesData;
     const objectiveContent = objectives.length > 0 ? objectives : objectiveData;
@@ -28,6 +34,8 @@ export const getData = async () => {
     const governingContent = governing.length > 0 ? governing : governingData;
     const factContent = facts.length > 0 ? facts : factsData;
     const heroContent = heros.length > 0 ? heros : heroData;
+    const InfoContent = info.length > 0 ? info : contactInfoContent;
+    const upcomingEventsContent = events.length > 0 ? events : upcomingEvents;
 
     return {
       heroContent,
@@ -36,17 +44,10 @@ export const getData = async () => {
       trusteeContent,
       governingContent,
       factContent,
+      InfoContent,
+      upcomingEventsContent,
     };
   } catch (error) {
     console.log(error);
-
-    return {
-      heroContent,
-      serviceContent,
-      objectiveContent,
-      trusteeContent,
-      governingContent,
-      factContent,
-    };
   }
 };

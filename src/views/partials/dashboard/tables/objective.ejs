@@ -1,253 +1,227 @@
 <div class="col-lg-12">
-    <div class="page-title">
-        <h3>Home Page Objectives
-            <button class="btn btn-outline-primary float-end " type="button" data-bs-toggle="modal"
-                data-bs-target="#createObjective"><i class="fas fa-plus"></i>
-                New Objective</button>
-        </h3>
-    </div>
-    <div class="box box-primary">
-        <div class="box-body">
-            <table width="100%" class="table table-hover" id="dataTables-example">
-                <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Description</th>
-                        <th>Label</th>
-                        <th>Link To</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
+  <div class="page-title">
+    <h3>Home Page Objectives
+      <button class="btn btn-outline-primary float-end " type="button" data-bs-toggle="modal" data-bs-target="#createObjective"><i class="fas fa-plus"></i>
+        New Objective</button>
+    </h3>
+  </div>
+  <div class="box box-primary">
+    <div class="box-body">
+      <table width="100%" class="table table-hover" id="dataTables-example">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Label</th>
+            <th>Link To</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
 
-                    <% objectiveContent.forEach((objective, index)=> { %>
-                        <tr>
-                            <td>
-                                <%= objective.title %>
+          <% objectiveContent.forEach((objective, index)=> { %>
+          <tr>
+            <td>
+              <%= objective.title %>
 
-                            </td>
-                            <td>
-                                <%= objective.description %>
-                            </td>
-                            <td>
-                                <%= objective.buttonLabel %>
-                            </td>
-                            <td>
-                                <%= objective.buttonLink %>
-                            </td>
-                            <td class="text-end ">
-                                <button type="button" data-bs-toggle="modal" data-bs-target="#<%= index+300 %>"
-                                    class="btn btn-outline-info btn-rounded" type="button"><i
-                                        class="fas fa-pen"></i></button>
-                                <a class="btn btn-outline-danger btn-rounded" type="button" data-bs-toggle="modal"
-                                    data-bs-target="#<%= index+400 %>"><i class="fas fa-trash"></i></a>
+            </td>
+            <td>
+              <%= objective.description %>
+            </td>
+            <td>
+              <%= objective.buttonLabel %>
+            </td>
+            <td>
+              <%= objective.buttonLink %>
+            </td>
+            <td class="text-end ">
+              <button type="button" data-bs-toggle="modal" data-bs-target="#<%= index+300 %>" class="btn btn-outline-info btn-rounded" type="button"><i class="fas fa-pen"></i></button>
+              <a class="btn btn-outline-danger btn-rounded" type="button" data-bs-toggle="modal" data-bs-target="#<%= index+400 %>"><i class="fas fa-trash"></i></a>
 
-                                <!-- delete modal -->
-                                <div class="modal fade" id="<%= index+400%>" data-bs-backdrop="static"
-                                    data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
-                                    aria-hidden="true">
-                                    <div class="modal-dialog modal-md">
-                                        <div class="modal-content">
-                                            <div class="modal-header float-start">
-                                                <h1 class="modal-title fs-5 " id="staticBackdropLabel">
-                                                    <%= objective.title %>
-                                                </h1>
+              <!-- delete modal -->
+              <div class="modal fade" id="<%= index+400%>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-md">
+                  <div class="modal-content">
+                    <div class="modal-header float-start">
+                      <h1 class="modal-title fs-5 " id="staticBackdropLabel">
+                        <%= objective.title %>
+                      </h1>
 
-                                            </div>
-                                            <form action="/delete-objective" method="POST"
-                                                class="modal-body flex-row justify-content-center" id="delete">
-                                                <input type="hidden" name="_id" value="<%= objective._id %>">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-bs-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-danger">
-                                                    DELETE
-                                                </button>
+                    </div>
+                    <form action="/delete-objective" method="POST" class="modal-body flex-row justify-content-center" id="delete">
+                      <input type="hidden" name="_id" value="<%= objective._id %>">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-danger">
+                        DELETE
+                      </button>
 
-                                            </form>
+                    </form>
 
-                                        </div>
-                                    </div>
-                                </div>
+                  </div>
+                </div>
+              </div>
 
-                                <!-- end delete modal -->
-                                <!-- update modal -->
-                                <div class="modal fade " id="<%= index+300%>" data-bs-backdrop="static"
-                                    data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
-                                    aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="staticBackdropLabel">
-                                                    <%= objective.title %>
-                                                </h1>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form action="/create-objective" method="POST">
-                                                    <input type="hidden" name="_id" value="<%= objective._id %>">
-                                                    <div class="mb-3">
-                                                        <label for="title" class="form-label float-start">Title</label>
-                                                        <input type="text" name="title" placeholder="Title"
-                                                            value="<%= objective.title %>" class="form-control"
-                                                            required>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="buttonLabel"
-                                                            class="form-label float-start">Label</label>
-                                                        <input value="<%= objective.buttonLabel %>" type="text"
-                                                            name="buttonLabel" placeholder="Enter button label"
-                                                            class="form-control" required>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="buttonLink" class="form-label float-start">Link
-                                                            To</label>
-                                                        <input type="text" name="buttonLink"
-                                                            placeholder="Enter Link reference" class="form-control"
-                                                            value="<%= objective.buttonLink %>">
-                                                    </div>
+              <!-- end delete modal -->
+              <!-- update modal -->
+              <div class="modal fade " id="<%= index+300%>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                        <%= objective.title %>
+                      </h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <form action="/create-objective" method="POST">
+                        <input type="hidden" name="_id" value="<%= objective._id %>">
+                        <div class="mb-3">
+                          <label for="title" class="form-label float-start">Title</label>
+                          <input type="text" name="title" placeholder="Title" value="<%= objective.title %>" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                          <label for="buttonLabel" class="form-label float-start">Label</label>
+                          <input value="<%= objective.buttonLabel %>" type="text" name="buttonLabel" placeholder="Enter button label" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                          <label for="buttonLink" class="form-label float-start">Link
+                            To</label>
+                          <input type="text" name="buttonLink" placeholder="Enter Link reference" class="form-control" value="<%= objective.buttonLink %>">
+                        </div>
 
-                                                    <div class="form-check form-switch  mb-3">
-                                                        <input class="form-check-input" type="checkbox" role="switch"
-                                                            id="buttonColor" name="buttonColor"
-                                                            checked="<%= objective.buttonColor %>">
-                                                        <label class="form-check-label" for="buttonColor">Default
-                                                            Color</label>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="description"
-                                                            class="form-label float-start">Description</label>
-                                                        <textarea class="form-control" id="description" rows="4"
-                                                            name="description">
+                        <div class="form-check form-switch  mb-3">
+                          <input class="form-check-input" type="checkbox" role="switch" id="buttonColor" name="buttonColor" checked="<%= objective.buttonColor %>">
+                          <label class="form-check-label" for="buttonColor">Default
+                            Color</label>
+                        </div>
+                        <div class="mb-3">
+                          <label for="description" class="form-label float-start">Description</label>
+                          <textarea class="form-control" id="description" rows="4" name="description">
                                                             value="<%= objective.description %>"
                                                         </textarea>
 
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <button type="button" class="btn btn-secondary"
-                                                            data-bs-dismiss="modal">Close</button>
-                                                        <button type="submit" class="btn btn-primary">
-                                                            UPDATE
-                                                        </button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                            <script>
-                                document.getElementById(`${index + 300}`).addEventListener('submit', async (event) => {
-                                    event.preventDefault();
-                                    const formData = new FormData(event.target);
-                                    try {
-                                        const response = await fetch('/create-objective', {
-                                            method: 'POST',
-                                            body: formData,
-                                        });
-                                        if (response.ok) {
-                                            event.target.reset();
-                                            $('#staticBackdrop').modal('hide');
-                                            location.reload();
-                                        }
-                                    } catch (error) {
-                                        console.error('Error submitting the form:', error);
-                                    }
-                                });
-                                document.getElementById(`${index + 400}`).addEventListener('submit', async (event) => {
-                                    event.preventDefault();
-                                    const formData = new FormData(event.target);
-                                    try {
-                                        const response = await fetch('/delete-objective', {
-                                            method: 'POST',
-                                            body: formData,
-                                        });
-                                        if (response.ok) {
-                                            event.target.reset();
-                                            $('#staticBackdrop').modal('hide');
-                                            location.reload();
-                                            alert('Service deleted successfully')
-                                        }
-                                    } catch (error) {
-                                        console.error('Error submitting the form:', error);
-                                    }
-                                });
-                            </script>
+                        </div>
+                        <div class="mb-3">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-primary">
+                            UPDATE
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+            <script>
+              document.getElementById(`${index + 300}`).addEventListener('submit', async (event) => {
+                event.preventDefault();
+                const formData = new FormData(event.target);
+                try {
+                  const response = await fetch('/create-objective', {
+                    method: 'POST',
+                    body: formData,
+                  });
+                  if (response.ok) {
+                    event.target.reset();
+                    $('#staticBackdrop').modal('hide');
+                    location.reload();
+                  }
+                } catch (error) {
+                  console.error('Error submitting the form:', error);
+                }
+              });
+              document.getElementById(`${index + 400}`).addEventListener('submit', async (event) => {
+                event.preventDefault();
+                const formData = new FormData(event.target);
+                try {
+                  const response = await fetch('/delete-objective', {
+                    method: 'POST',
+                    body: formData,
+                  });
+                  if (response.ok) {
+                    event.target.reset();
+                    $('#staticBackdrop').modal('hide');
+                    location.reload();
+                    alert('Service deleted successfully')
+                  }
+                } catch (error) {
+                  console.error('Error submitting the form:', error);
+                }
+              });
+            </script>
 
-                        </tr>
+          </tr>
 
-                        <% }); %>
+          <% }); %>
 
-                </tbody>
-            </table>
-        </div>
+        </tbody>
+      </table>
     </div>
+  </div>
 </div>
 
-<div class="modal fade" id="createObjective" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">Create New Objective</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form action="/create-objective" method="POST" id="create-objective">
-                    <div class="mb-3">
-                        <label for="title" class="form-label float-start">Title</label>
-                        <input type="text" name="title" placeholder="Title" class="form-control" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="buttonLabel" class="form-label float-start">Label</label>
-                        <input type="text" name="buttonLabel" placeholder="Enter button label" class="form-control"
-                            required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="buttonLink" class="form-label float-start">Link To</label>
-                        <input type="text" name="buttonLink" placeholder="Enter Link reference" class="form-control">
-                    </div>
+<div class="modal fade" id="createObjective" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Create New Objective</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/create-objective" method="POST" id="create-objective">
+          <div class="mb-3">
+            <label for="title" class="form-label float-start">Title</label>
+            <input type="text" name="title" placeholder="Title" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label for="buttonLabel" class="form-label float-start">Label</label>
+            <input type="text" name="buttonLabel" placeholder="Enter button label" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label for="buttonLink" class="form-label float-start">Link To</label>
+            <input type="text" name="buttonLink" placeholder="Enter Link reference" class="form-control">
+          </div>
 
-                    <div class="form-check form-switch  mb-3">
-                        <input class="form-check-input" type="checkbox" role="switch" id="buttonColor"
-                            name="buttonColor">
-                        <label class="form-check-label" for="buttonColor">Default Color</label>
-                    </div>
-                    <div class="mb-3">
-                        <label for="description" class="form-label float-start">Description</label>
-                        <textarea class="form-control" id="description" rows="4" name="description"></textarea>
+          <div class="form-check form-switch  mb-3">
+            <input class="form-check-input" type="checkbox" role="switch" id="buttonColor" name="buttonColor">
+            <label class="form-check-label" for="buttonColor">Default Color</label>
+          </div>
+          <div class="mb-3">
+            <label for="description" class="form-label float-start">Description</label>
+            <textarea class="form-control" id="description" rows="4" name="description"></textarea>
 
-                    </div>
-                    <div class="mb-3">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">
-                            CREATE
-                        </button>
-                    </div>
-                </form>
-            </div>
+          </div>
+          <div class="mb-3">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">
+              CREATE
+            </button>
+          </div>
+        </form>
+      </div>
 
-        </div>
     </div>
+  </div>
 </div>
 
 <script>
-    document.getElementById('create-objective').addEventListener('submit', async (event) => {
-        event.preventDefault();
-        const formData = new FormData(event.target);
-        try {
-            const response = await fetch('/create-objective', {
-                method: 'POST',
-                body: formData,
-            });
-            if (response.ok) {
+  document.getElementById('create-objective').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    try {
+      const response = await fetch('/create-objective', {
+        method: 'POST',
+        body: formData,
+      });
+      if (response.ok) {
 
-                event.target.reset();
-                $('#createObjective').modal('hide');
-                location.reload();
-            }
-        } catch (error) {
-            return
-        }
-    });
+        event.target.reset();
+        $('#createObjective').modal('hide');
+        location.reload();
+      }
+    } catch (error) {
+      return
+    }
+  });
 </script>
