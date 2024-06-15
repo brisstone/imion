@@ -1,0 +1,52 @@
+<div class="col-lg-4">
+  <div class="card">
+    <div class="card-header">Home Background</div>
+    <div class="card-body">
+
+      <div>
+        <video autoplay muted loop id="bg-video" width="400">
+          <!-- <source src="assets/images/course-video.mp4" type="video/mp4" /> -->
+          <source src="<%- videoContent[0].url  %>">
+
+        </video>
+      </div>
+      <form id="home-video" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="_id" value="<%- videoContent[0]._id  %>">
+
+        <div class="mb-3">
+          <label for="video" class="form-label">Upload Video</label>
+          <input type="file" name="video" class="form-control" accept="video/" required>
+        </div>
+
+        <div class="mb-3">
+          <button type="submit" class="btn btn-primary">
+            UpLoad
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.getElementById('home-video').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    try {
+      const response = await fetch('/upload-home-video', {
+        method: 'POST',
+        body: formData,
+      });
+      if (response.ok) {
+        location.reload()
+        alert("Successfully updated")
+        console.log('Form submitted successfully');
+
+      } else {
+        console.error('Error submitting the form');
+      }
+    } catch (error) {
+      console.error('Error submitting the form:', error);
+    }
+  });
+</script>

@@ -15,13 +15,11 @@ export const login = async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
     if (!user) {
-      console.log("Couldn't find" + email);
       return res.redirect("/login");
     }
     const isMatch = await bcrypt.compare(password, user.password);
     if (isMatch) {
       req.session.user = user;
-      console.log("login successful");
       res.redirect("/dashboard");
     } else {
       res.redirect("/login");
@@ -51,8 +49,6 @@ export const register = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, salt);
     const user = new User({ email, name, password: hashedPassword });
     await user.save();
-
-    console.log(user);
     res.redirect("/login");
   } catch (err) {
     console.error(err);
@@ -61,5 +57,5 @@ export const register = async (req, res) => {
 };
 export const logout = async (req, res) => {
   req.session.destroy();
-  res.redirect("/login", 301);
+  res.redirect("/", 301);
 };

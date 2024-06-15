@@ -1,6 +1,6 @@
 import express from "express";
 const router = express.Router();
-import { home, about } from "../controllers/home.js";
+import { home, about, gallery, contact } from "../controllers/home.js";
 import {
   loginView,
   login,
@@ -19,24 +19,37 @@ import {
   deleteTrustee,
   createGoverning,
   deleteGoverning,
+  createAbout,
+  uploadHomeVideo,
 } from "../controllers/dashboard.js";
+import { contactUs } from "../controllers/contact.js";
+import { dashboardAbout } from "../controllers/dashboardAbout.js";
+import {
+  dashboardContact,
+  createContactInfo,
+} from "../controllers/dashboardContact.js";
 
 const isAuthenticated = (req, res, next) => {
   if (req.session.user) {
     next();
   } else {
+    createContactInfo;
     res.redirect("/login");
   }
 };
 
 router.get("/", home);
 router.get("/about", about);
+router.get("/gallery", gallery);
+router.get("/contact", contact);
 router.get("/login", loginView);
 router.post("/login", login);
 router.get("/logout", logout);
 router.get("/register", registerView);
 router.post("/register", register);
 router.get("/dashboard", isAuthenticated, dashboard);
+router.get("/dashboard-about", isAuthenticated, dashboardAbout);
+router.get("/dashboard-contact", isAuthenticated, dashboardContact);
 router.post("/create-service", isAuthenticated, createService);
 router.post("/delete-service", isAuthenticated, deleteService);
 router.post("/hero-content", isAuthenticated, heroContent);
@@ -49,5 +62,13 @@ router.post("/delete-trustee", isAuthenticated, deleteTrustee);
 
 router.post("/create-governing", isAuthenticated, createGoverning);
 router.post("/delete-governing", isAuthenticated, deleteGoverning);
+
+router.post("/create-about", isAuthenticated, createAbout);
+
+router.post("/create-contact-info", isAuthenticated, createContactInfo);
+
+router.post("/upload-home-video", isAuthenticated, uploadHomeVideo);
+
+router.post("/contact-form", contactUs);
 
 export default router;

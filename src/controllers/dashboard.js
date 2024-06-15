@@ -1,5 +1,8 @@
+import AboutContent from "../models/AboutContent.model.js";
+import DepartmentContent from "../models/DepartmentContent.model.js";
 import GoverningContent from "../models/GoverningContent.mode.js";
 import HeroContent from "../models/HeroContent.model.js";
+import HomeVideo from "../models/HomeVideo.model.js";
 import ObjectiveContent from "../models/ObjectiveContent.model.js";
 
 import ServiceContent from "../models/ServiceContent.model.js";
@@ -8,7 +11,7 @@ import { getData } from "../services/getData.js";
 
 import fs from "fs";
 
-const renderDashboard = async (res, user) => {
+export const renderDashboard = async (res, user) => {
   try {
     const data = await getData();
     return res.render("../src/views/pages/dashboard.ejs", {
@@ -50,6 +53,53 @@ export const heroContent = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal server error.");
+  }
+};
+
+export const uploadHomeVideo = async (req, res) => {
+  const user = req.session.user;
+  let _id = req.body._id || ""; // Assuming _id is coming from the request body
+  let video;
+
+  try {
+    // Remove previous video if _id is provided
+    if (_id !== "") {
+      const previousVideo = await HomeVideo.findById(_id);
+      if (previousVideo && previousVideo.url) {
+        fs.unlinkSync(`public/${previousVideo.url}`);
+      }
+    }
+
+    // Upload new video
+    if (req.files && req.files.video) {
+      const upload = req.files.video;
+      video = `uploads/${Date.now()}_${upload.name}`;
+      await new Promise((resolve, reject) => {
+        upload.mv(`public/${video}`, (err) => {
+          if (err) {
+            reject(new Error("File upload failed."));
+          } else {
+            resolve();
+          }
+        });
+      });
+    } else {
+      // If no video is provided, set video to an empty string or a default value
+      video = "/assets//videos/videpo_22.mp4";
+    }
+
+    // Update or create a new document
+    if (_id !== "") {
+      await HomeVideo.findByIdAndUpdate(_id, { url: video }, { new: true });
+    } else {
+      const newView = new HomeVideo({ url: video });
+      await newView.save();
+    }
+
+    await renderDashboard(res, user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
   }
 };
 
@@ -270,7 +320,7 @@ export const deleteGoverning = async (req, res) => {
     if (!governing) {
       return res.status(404).send("Trustee not found.");
     }
-    if (trustee.imageUrl) {
+    if (governing.imageUrl) {
       fs.unlinkSync(`public/${governing.imageUrl}`);
     }
     await GoverningContent.findByIdAndDelete(_id);
@@ -278,5 +328,137 @@ export const deleteGoverning = async (req, res) => {
   } catch (error) {
     console.error(error);
     return res.status(500).send("Internal server error.");
+  }
+};
+
+export const createEvent = async (req, res) => {
+  const user = req.session.user;
+  const { title, description, imageUrl, month, day, _id } = req.body;
+
+  if (!title || !description || !imageUrl || !month || !day) {
+    return res
+      .status(400)
+      .send("Title, description, imageUrl, month, and day are required.");
+  }
+
+  try {
+    if (_id) {
+      await UpcomingEvent.findByIdAndUpdate(
+        _id,
+        { title, description, imageUrl, month, day },
+        { new: true }
+      );
+    } else {
+      const newEvent = new UpcomingEvent({
+        title,
+        description,
+        imageUrl,
+        month,
+        day,
+      });
+      await newEvent.save();
+    }
+    await renderDashboard(res, user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal server error.");
+  }
+};
+
+export const deleteEvent = async (req, res) => {
+  const { _id } = req.body;
+  const user = req.session.user;
+
+  try {
+    const event = await UpcomingEvent.findById(_id);
+
+    if (!event) {
+      return res.status(404).send("Event not found.");
+    }
+
+    await UpcomingEvent.findByIdAndDelete(_id);
+    await renderDashboard(res, user);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send("Internal server error.");
+  }
+};
+
+export const createAbout = async (req, res) => {
+  const user = req.session.user;
+  const { title, content_one, content_two, content_three, content_four, _id } =
+    req.body;
+
+  if (!title || !content_one || !content_two) {
+    return res.status(400).send("All fields are required.");
+  }
+  try {
+    if (_id) {
+      await AboutContent.findByIdAndUpdate(
+        _id,
+        { title, content_one, content_two, content_three, content_four },
+        { new: true }
+      );
+    } else {
+      const newAbout = new AboutContent({
+        title,
+        content_one,
+        content_two,
+        content_three,
+        content_four,
+      });
+      await newAbout.save();
+    }
+    await renderDashboard(res, user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal server error.");
+  }
+};
+
+export const deleteAbout = async (req, res) => {
+  const { _id } = req.body;
+  const user = req.session.user;
+
+  try {
+    const about = await AboutContent.findById(_id);
+
+    if (!about) {
+      return res.status(404).send("item not found.");
+    }
+
+    await AboutContent.findByIdAndDelete(_id);
+    await renderDashboard(res, user);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send("Internal server error.");
+  }
+};
+export const createDepartment = async (req, res) => {
+  const user = req.session.user;
+  const { title, content_one, content_two } = req.body;
+
+  if (!title || !content_one || !content_two) {
+    return res.status(400).send("All fields are required.");
+  }
+  try {
+    if (_id !== "") {
+      await DepartmentContent.findByIdAndUpdate(
+        _id,
+        { title, content_one, content_two, content_three, content_four },
+        { new: true }
+      );
+    } else {
+      const created = new DepartmentContent({
+        title,
+        content_one,
+        content_two,
+      });
+      await created.save();
+    }
+    await renderDashboard(res, user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal server error.");
   }
 };
