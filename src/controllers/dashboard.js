@@ -2,6 +2,7 @@ import AboutContent from "../models/AboutContent.model.js";
 import DepartmentContent from "../models/DepartmentContent.model.js";
 import GoverningContent from "../models/GoverningContent.mode.js";
 import HeroContent from "../models/HeroContent.model.js";
+import HomeVideo from "../models/HomeVideo.model.js";
 import ObjectiveContent from "../models/ObjectiveContent.model.js";
 
 import ServiceContent from "../models/ServiceContent.model.js";
@@ -52,6 +53,40 @@ export const heroContent = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal server error.");
+  }
+};
+
+export const uploadHomeVideo = async (req, res) => {
+  const user = req.session.user;
+  let video;
+
+  try {
+    if (_id !== "") {
+      const previousVideo = await HomeVideo.findById(_id);
+      if (previousVideo.url) {
+        fs.unlinkSync(`public/${previousVideo.url}`);
+      }
+    }
+    if (req.files && req.files.video) {
+      const upload = req.files.video;
+      video = `uploads/${Date.now()}_${upload.name}`;
+      upload.mv(`public/${video}`, async (err) => {
+        if (err) {
+          return res.status(500).send("File upload failed.");
+        }
+      });
+    }
+    if (_id !== "") {
+      await HomeVideo.findByIdAndUpdate(_id, { url: video }, { new: true });
+    } else {
+      const newView = new HomeVideo({ url: video });
+      await newView.save();
+    }
+
+    await renderDashboard(res, user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send(error);
   }
 };
 
