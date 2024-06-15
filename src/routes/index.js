@@ -1,13 +1,7 @@
 import express from "express";
 const router = express.Router();
 import { home, about, gallery, contact } from "../controllers/home.js";
-import {
-  loginView,
-  login,
-  register,
-  registerView,
-  logout,
-} from "../controllers/auth.js";
+import { loginView, login, register, logout } from "../controllers/auth.js";
 import {
   dashboard,
   heroContent,
@@ -45,8 +39,7 @@ router.get("/contact", contact);
 router.get("/login", loginView);
 router.post("/login", login);
 router.get("/logout", logout);
-router.get("/register", registerView);
-router.post("/register", register);
+router.get("/register", register);
 router.get("/dashboard", isAuthenticated, dashboard);
 router.get("/dashboard-about", isAuthenticated, dashboardAbout);
 router.get("/dashboard-contact", isAuthenticated, dashboardContact);

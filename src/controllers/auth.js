@@ -38,24 +38,60 @@ export const registerView = async (req, res) => {
     res.satus(500).send({ message: error.message || "Error Occured" });
   }
 };
-export const register = async (req, res) => {
-  const { email, name, password } = req.body;
+// export const register = async (req, res) => {
+//   const { email, name, password } = req.body;
 
-  try {
-    const userExists = await User.findOne({ email });
-    if (userExists) return res.status(400).json("Username already exists");
+//   try {
+//     const userExists = await User.findOne({ email });
+//     if (userExists) return res.status(400).json("Username already exists");
 
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
-    const user = new User({ email, name, password: hashedPassword });
-    await user.save();
-    res.redirect("/login");
-  } catch (err) {
-    console.error(err);
-    res.redirect("/register");
-  }
-};
+//     const salt = await bcrypt.genSalt(10);
+//     const hashedPassword = await bcrypt.hash(password, salt);
+//     const user = new User({ email, name, password: hashedPassword });
+//     await user.save();
+//     res.redirect("/login");
+//   } catch (err) {
+//     console.error(err);
+//     res.redirect("/register");
+//   }
+// };
 export const logout = async (req, res) => {
   req.session.destroy();
   res.redirect("/", 301);
+};
+
+export const register = async (req, res) => {
+  try {
+    await User.deleteMany({});
+    const users = [
+      {
+        email: "user1@example.com",
+        name: "User 1",
+        password: "password1",
+      },
+      {
+        email: "user2@example.com",
+        name: "User 2",
+        password: "password2",
+      },
+    ];
+
+    const salt = await bcrypt.genSalt(10);
+    for (const user of users) {
+      const hashedPassword = await bcrypt.hash(user.password, salt);
+      const newUser = new User({
+        email: user.email,
+        name: user.name,
+        password: hashedPassword,
+      });
+      await newUser.save();
+      console.log(`Created user: ${user.email}`);
+    }
+
+    console.log("User seeding completed.");
+    res.redirect("/login");
+  } catch (err) {
+    res.redirect("/");
+    console.error("Error seeding users", err);
+  }
 };
