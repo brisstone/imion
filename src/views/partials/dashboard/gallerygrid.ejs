@@ -1,0 +1,84 @@
+<div class="container py-5">
+
+
+  <div class="col-md-3 mb-2">
+
+    <form id="add-gallery-image" method="post" enctype="multipart/form-data">
+      <div class="mb-3">
+        <label for="image" class="form-label">Add Gallery New Image</label>
+        <input type="file" name="image" class="form-control" accept="image/*" required>
+      </div>
+
+      <div class="mb-3">
+        <button type="submit" class="btn btn-primary">
+          UpLoad
+        </button>
+      </div>
+    </form>
+  </div>
+  <div class="row">
+    <% galleryContent.forEach(element=> { %>
+    <div class="col-md-2 mb-4" role="button" data-bs-toggle="modal" data-bs-target="#<%=element._id %>">
+      <img src="<%=element.url %>" class="img-fluid" alt="Gallery Image <%=element._id %>" loading="lazy">
+    </div>
+    <div class="modal fade" id="<%=element._id %>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-body">
+            <img src="<%=element.url %>" class="img-fluid" alt="Gallery Image <%=element._id %>" loading="lazy">
+          </div>
+          <div class="modal-footer">
+            <form action="/delete-gallery-image" method="post" id="<%=element._id %>">
+              <input type="hidden" name="_id" value="<%=element._id %>">
+              <input type="hidden" name="url" value="<%=element.url %>">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.getElementById(`${element._id}`).addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        console.log("got here");
+        try {
+          const response = await fetch('/delete-gallery-image', {
+            method: 'POST',
+            body: formData,
+          });
+          if (response.ok) {
+            event.target.reset();
+            $('#staticBackdrop').modal('hide');
+            location.reload();
+          }
+        } catch (error) {
+          console.error('Error submitting the form:', error);
+        }
+      });
+    </script>
+    <% }); %>
+  </div>
+</div>
+
+
+<script>
+  document.getElementById("add-gallery-image").addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    try {
+      const response = await fetch('/add-gallery-image', {
+        method: 'POST',
+        body: formData,
+      });
+      if (response.ok) {
+        event.target.reset();
+        location.reload();
+      }
+    } catch (error) {
+      console.error('Error submitting the form:', error);
+    }
+  });
+</script>

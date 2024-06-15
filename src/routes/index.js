@@ -22,7 +22,12 @@ import {
   dashboardContact,
   createContactInfo,
 } from "../controllers/dashboardContact.js";
-
+import {
+  dashboardGallery,
+  gallerySeeder,
+  deleteGalleryImage,
+  addGalleryImage,
+} from "../controllers/downloadGal.js";
 const isAuthenticated = (req, res, next) => {
   if (req.session.user) {
     next();
@@ -46,6 +51,9 @@ router.get("/dashboard-contact", isAuthenticated, dashboardContact);
 router.post("/create-service", isAuthenticated, createService);
 router.post("/delete-service", isAuthenticated, deleteService);
 router.post("/hero-content", isAuthenticated, heroContent);
+router.get("/dashboard-gallery", isAuthenticated, dashboardGallery);
+router.post("/delete-gallery-image", isAuthenticated, deleteGalleryImage);
+router.post("/add-gallery-image", isAuthenticated, addGalleryImage);
 
 router.post("/create-objective", isAuthenticated, createObject);
 router.post("/delete-objective", isAuthenticated, deleteObject);
@@ -64,4 +72,5 @@ router.post("/upload-home-video", isAuthenticated, uploadHomeVideo);
 
 router.post("/contact-form", contactUs);
 
+router.get("/gallery-seeder", gallerySeeder);
 export default router;

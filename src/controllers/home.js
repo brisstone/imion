@@ -30,10 +30,11 @@ export const about = async (req, res) => {
 
 export const gallery = async (req, res) => {
   try {
-    const data = await getData();
+    const { galleryContent, InfoContent } = await getData();
     res.render("../src/views/pages/gallery.ejs", {
       pageTitle: "Gallery",
-      data,
+      galleryContent,
+      InfoContent,
     });
   } catch (error) {
     res.status(500).send({ message: error.message || "Error Occured" });

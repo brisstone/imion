@@ -17,6 +17,7 @@ import UpcomingEventContent from "../models/UpcomingEventContent.model.js";
 import { aboutData } from "../data/aboutData.js";
 import AboutContent from "../models/AboutContent.model.js";
 import HomeVideo from "../models/HomeVideo.model.js";
+import GalleryContent from "../models/GalleryContent.model.js";
 
 export const getData = async () => {
   try {
@@ -30,6 +31,7 @@ export const getData = async () => {
     const events = await UpcomingEventContent.find({});
     const about = await AboutContent.find({});
     const video = await HomeVideo.find({}).limit(1);
+    const galleries = await GalleryContent.find({}).sort({ createdAt: -1 });
 
     const aboutTopContent = about.length > 0 ? about : aboutData;
     const serviceContent = services.length > 0 ? services : servicesData;
@@ -43,6 +45,14 @@ export const getData = async () => {
     const videoContent =
       video.length > 0 ? video : [{ url: "/assets//videos/videpo_22.mp4" }];
 
+    const galleryContent =
+      galleries.length > 0
+        ? galleries
+        : [
+            { url: "uploads/gallery/ga_41.jpg" },
+            { url: "uploads/gallery/ga_42.jpg" },
+          ];
+
     return {
       heroContent,
       serviceContent,
@@ -54,6 +64,7 @@ export const getData = async () => {
       upcomingEventsContent,
       aboutTopContent,
       videoContent,
+      galleryContent,
     };
   } catch (error) {
     console.log(error);
