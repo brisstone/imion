@@ -4,18 +4,18 @@ import ObjectiveContent from "../models/ObjectiveContent.model.js";
 import { servicesData } from "../data/servicesData.js";
 import { objectiveData } from "../data/objectiveData.js";
 import TrusteeContent from "../models/TrusteeContent.model.js";
-
 import { trusteeData } from "../data/trusteeData.js";
 import { governingData } from "../data/governingData.js";
 import GoverningContent from "../models/GoverningContent.mode.js";
 import FactContent from "../models/FactContent.model.js";
-
 import { factsData } from "../data/factData.js";
 import { heroData } from "../data/heroData.js";
 import { contactInfoContent } from "../data/contactForm.js";
 import ContactInfoContent from "../models/ContactInfoContent.model.js";
 import { upcomingEvents } from "../data/upcomingEventsData.js";
 import UpcomingEventContent from "../models/UpcomingEventContent.model.js";
+import { aboutData } from "../data/aboutData.js";
+import AboutContent from "../models/AboutContent.model.js";
 
 export const getData = async () => {
   try {
@@ -27,7 +27,9 @@ export const getData = async () => {
     const facts = await FactContent.find({});
     const info = await ContactInfoContent.find({});
     const events = await UpcomingEventContent.find({});
+    const about = await AboutContent.find({});
 
+    const aboutTopContent = about.length > 0 ? about : aboutData;
     const serviceContent = services.length > 0 ? services : servicesData;
     const objectiveContent = objectives.length > 0 ? objectives : objectiveData;
     const trusteeContent = trustees.length > 0 ? trustees : trusteeData;
@@ -46,8 +48,10 @@ export const getData = async () => {
       factContent,
       InfoContent,
       upcomingEventsContent,
+      aboutTopContent,
     };
   } catch (error) {
     console.log(error);
+    // Handle the error appropriately, e.g., return a default value or throw the error
   }
 };

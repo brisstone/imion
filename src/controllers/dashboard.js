@@ -1,3 +1,5 @@
+import AboutContent from "../models/AboutContent.model.js";
+import DepartmentContent from "../models/DepartmentContent.model.js";
 import GoverningContent from "../models/GoverningContent.mode.js";
 import HeroContent from "../models/HeroContent.model.js";
 import ObjectiveContent from "../models/ObjectiveContent.model.js";
@@ -331,5 +333,84 @@ export const deleteEvent = async (req, res) => {
   } catch (error) {
     console.error(error);
     return res.status(500).send("Internal server error.");
+  }
+};
+
+export const createAbout = async (req, res) => {
+  const user = req.session.user;
+  const { title, content_one, content_two, content_three, content_four, _id } =
+    req.body;
+
+  if (!title || !content_one || !content_two) {
+    return res.status(400).send("All fields are required.");
+  }
+  try {
+    if (_id) {
+      await AboutContent.findByIdAndUpdate(
+        _id,
+        { title, content_one, content_two, content_three, content_four },
+        { new: true }
+      );
+    } else {
+      const newAbout = new AboutContent({
+        title,
+        content_one,
+        content_two,
+        content_three,
+        content_four,
+      });
+      await newAbout.save();
+    }
+    await renderDashboard(res, user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal server error.");
+  }
+};
+
+export const deleteAbout = async (req, res) => {
+  const { _id } = req.body;
+  const user = req.session.user;
+
+  try {
+    const about = await AboutContent.findById(_id);
+
+    if (!about) {
+      return res.status(404).send("item not found.");
+    }
+
+    await AboutContent.findByIdAndDelete(_id);
+    await renderDashboard(res, user);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send("Internal server error.");
+  }
+};
+export const createDepartment = async (req, res) => {
+  const user = req.session.user;
+  const { title, content_one, content_two } = req.body;
+
+  if (!title || !content_one || !content_two) {
+    return res.status(400).send("All fields are required.");
+  }
+  try {
+    if (_id !== "") {
+      await DepartmentContent.findByIdAndUpdate(
+        _id,
+        { title, content_one, content_two, content_three, content_four },
+        { new: true }
+      );
+    } else {
+      const created = new DepartmentContent({
+        title,
+        content_one,
+        content_two,
+      });
+      await created.save();
+    }
+    await renderDashboard(res, user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal server error.");
   }
 };

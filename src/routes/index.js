@@ -21,6 +21,8 @@ import {
   deleteGoverning,
 } from "../controllers/dashboard.js";
 import { contactUs } from "../controllers/contact.js";
+import { dashboardAbout } from "../controllers/dashboardAbout.js";
+import { dashboardContact } from "../controllers/dashboardContact.js";
 
 const isAuthenticated = (req, res, next) => {
   if (req.session.user) {
@@ -40,6 +42,8 @@ router.get("/logout", logout);
 router.get("/register", registerView);
 router.post("/register", register);
 router.get("/dashboard", isAuthenticated, dashboard);
+router.get("/dashboard-about", isAuthenticated, dashboardAbout);
+router.get("/dashboard-contact", isAuthenticated, dashboardContact);
 router.post("/create-service", isAuthenticated, createService);
 router.post("/delete-service", isAuthenticated, deleteService);
 router.post("/hero-content", isAuthenticated, heroContent);
@@ -54,4 +58,5 @@ router.post("/create-governing", isAuthenticated, createGoverning);
 router.post("/delete-governing", isAuthenticated, deleteGoverning);
 
 router.post("/contact-form", contactUs);
+
 export default router;
