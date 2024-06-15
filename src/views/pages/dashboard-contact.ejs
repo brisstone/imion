@@ -21,17 +21,16 @@
     <!-- sidebar navigation component -->
     <nav id="sidebar" class="active">
       <div class="sidebar-header">
-        <img src="asset/img/bootstraper-logo.png" alt="bootraper logo" class="app-logo">
       </div>
       <ul class="list-unstyled components text-secondary">
         <li>
           <a href="/dashboard"><i class="fas fa-home"></i>Home</a>
         </li>
         <li>
-          <a href="/dashboard-about"><i class="fas fa-file-alt"></i>Forms</a>
+          <a href="/dashboard-about"><i class="fas fa-file-alt"></i>About</a>
         </li>
         <li>
-          <a href="/dashboard-contact"><i class="fas fa-table"></i>Tables</a>
+          <a href="/dashboard-contact"><i class="fas fa-table"></i>Contact</a>
         </li>
 
       </ul>
@@ -76,6 +75,7 @@
       <div class="content">
         <div class="container-fluid">
           <div class="row">
+            <%- include('../partials/dashboard/forms/contact.ejs', InfoContent)%>
           </div>
         </div>
       </div>

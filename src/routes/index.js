@@ -19,15 +19,20 @@ import {
   deleteTrustee,
   createGoverning,
   deleteGoverning,
+  createAbout,
 } from "../controllers/dashboard.js";
 import { contactUs } from "../controllers/contact.js";
 import { dashboardAbout } from "../controllers/dashboardAbout.js";
-import { dashboardContact } from "../controllers/dashboardContact.js";
+import {
+  dashboardContact,
+  createContactInfo,
+} from "../controllers/dashboardContact.js";
 
 const isAuthenticated = (req, res, next) => {
   if (req.session.user) {
     next();
   } else {
+    createContactInfo;
     res.redirect("/login");
   }
 };
@@ -56,6 +61,10 @@ router.post("/delete-trustee", isAuthenticated, deleteTrustee);
 
 router.post("/create-governing", isAuthenticated, createGoverning);
 router.post("/delete-governing", isAuthenticated, deleteGoverning);
+
+router.post("/create-about", isAuthenticated, createAbout);
+
+router.post("/create-contact-info", isAuthenticated, createContactInfo);
 
 router.post("/contact-form", contactUs);
 

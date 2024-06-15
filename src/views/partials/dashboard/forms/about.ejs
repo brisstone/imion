@@ -1,0 +1,65 @@
+<div class="col-lg-6">
+  <div class="card">
+    <div class="card-header">About Us</div>
+    <div class="card-body">
+      <h5 class="card-title">Edit content on the about us page
+      </h5>
+      <form id="about-us-form" method="post">
+        <input type="hidden" name="_id" value="<%= aboutTopContent[0]._id %>">
+        <div class="mb-3">
+          <label for="title_one" class="form-label">Title one</label>
+          <input type="text" name="title" placeholder="Title" value="<%= aboutTopContent[0].title %>" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="content_one" class="form-label">First Content</label>
+          <textarea class="form-control" id="content_one" rows="7" name="content_one" required><%= aboutTopContent[0].content_one %></textarea>
+
+        </div>
+        <div class="mb-3">
+          <label for="content_two" class="form-label">Second Content</label>
+          <textarea class="form-control" id="content_two" rows="7" name="content_two" required><%= aboutTopContent[0].content_two %></textarea>
+
+        </div>
+        <div class="mb-3">
+          <label for="content_three" class="form-label">Third Content</label>
+          <textarea class="form-control" id="content_three" rows="7" name="content_three"><%= aboutTopContent[0].content_three %></textarea>
+
+        </div>
+        <div class="mb-3">
+          <label for="content_four" class="form-label">Fourth Content</label>
+          <textarea class="form-control" id="content_four" rows="7" name="content_four"><%= aboutTopContent[0].content_four %></textarea>
+
+        </div>
+        <div class="mb-3">
+          <button type="submit" class="btn btn-primary">
+            <%= (aboutTopContent._id !=='' ) ? 'UPDATE' : 'CREATE' %>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.getElementById('about-us-form').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    try {
+      const response = await fetch('/create-about', {
+        method: 'POST',
+        body: formData,
+      });
+      if (response.ok) {
+        location.reload()
+        alert("Successfully updated")
+        console.log('Form submitted successfully');
+
+      } else {
+        console.error('Error submitting the form');
+      }
+    } catch (error) {
+      console.error('Error submitting the form:', error);
+    }
+  });
+</script>

@@ -1,0 +1,54 @@
+<div class="col-lg-6">
+  <div class="card">
+    <div class="card-header">Contact Detail Edit</div>
+    <div class="card-body">
+      <h5 class="card-title">Edit contact detail on all pages
+      </h5>
+      <form id="hero-content-form" method="post">
+        <input type="hidden" name="_id" value="<%= InfoContent[0]._id %>">
+
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" name="email" placeholder="Email" value="<%= InfoContent[0].email %>" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label for="url" class="form-label">Website</label>
+          <input type="text" name="url" placeholder="Website" value="<%= InfoContent[0].url %>" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label for="phone" class="form-label">Phone Number</label>
+          <input type="text" name="phone" placeholder="Phone" value="<%= InfoContent[0].phone %>" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label for="address" class="form-label">Address</label>
+          <input type="text" name="address" placeholder="Enter Address" value="<%= InfoContent[0].address %>" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <button type="submit" class="btn btn-primary">
+            UPDATE
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.getElementById('hero-content-form').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    try {
+      const response = await fetch('/create-contact-info', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (response.ok) {
+        alert("Successfully updated");
+        location.reload();
+      }
+    } catch (error) {
+      console.error('Error submitting the form:', error);
+    }
+  });
+</script>
