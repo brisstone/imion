@@ -58,24 +58,37 @@ export const heroContent = async (req, res) => {
 
 export const uploadHomeVideo = async (req, res) => {
   const user = req.session.user;
+  let _id = req.body._id || ""; // Assuming _id is coming from the request body
   let video;
 
   try {
+    // Remove previous video if _id is provided
     if (_id !== "") {
       const previousVideo = await HomeVideo.findById(_id);
-      if (previousVideo.url) {
+      if (previousVideo && previousVideo.url) {
         fs.unlinkSync(`public/${previousVideo.url}`);
       }
     }
+
+    // Upload new video
     if (req.files && req.files.video) {
       const upload = req.files.video;
       video = `uploads/${Date.now()}_${upload.name}`;
-      upload.mv(`public/${video}`, async (err) => {
-        if (err) {
-          return res.status(500).send("File upload failed.");
-        }
+      await new Promise((resolve, reject) => {
+        upload.mv(`public/${video}`, (err) => {
+          if (err) {
+            reject(new Error("File upload failed."));
+          } else {
+            resolve();
+          }
+        });
       });
+    } else {
+      // If no video is provided, set video to an empty string or a default value
+      video = "/assets//videos/videpo_22.mp4";
     }
+
+    // Update or create a new document
     if (_id !== "") {
       await HomeVideo.findByIdAndUpdate(_id, { url: video }, { new: true });
     } else {
@@ -86,7 +99,7 @@ export const uploadHomeVideo = async (req, res) => {
     await renderDashboard(res, user);
   } catch (error) {
     console.error(error);
-    res.status(500).send(error);
+    res.status(500).send("Internal Server Error");
   }
 };
 

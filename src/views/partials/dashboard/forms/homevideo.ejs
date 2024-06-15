@@ -6,7 +6,7 @@
       <div>
         <video autoplay muted loop id="bg-video" width="400">
           <!-- <source src="assets/images/course-video.mp4" type="video/mp4" /> -->
-          <source src="/assets//videos/videpo_22.mp4" type="video/mp4">
+          <source src="<%- videoContent[0].url  %>">
 
         </video>
       </div>
@@ -15,9 +15,7 @@
 
         <div class="mb-3">
           <label for="video" class="form-label">Upload Video</label>
-          <input type="file" name="video" class="form-control" accept="" required>
-
-
+          <input type="file" name="video" class="form-control" accept="video/" required>
         </div>
 
         <div class="mb-3">
@@ -35,7 +33,7 @@
     event.preventDefault();
     const formData = new FormData(event.target);
     try {
-      const response = await fetch('/upload', {
+      const response = await fetch('/upload-home-video', {
         method: 'POST',
         body: formData,
       });
