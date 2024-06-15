@@ -65,9 +65,9 @@ export const register = async (req, res) => {
     await User.deleteMany({});
     const users = [
       {
-        email: "user1@example.com",
-        name: "User 1",
-        password: "password1",
+        email: "imion@gmail.com",
+        name: "IMION ADMIN",
+        password: "password",
       },
       {
         email: "user2@example.com",
