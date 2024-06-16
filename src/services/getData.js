@@ -18,6 +18,7 @@ import { aboutData } from "../data/aboutData.js";
 import AboutContent from "../models/AboutContent.model.js";
 import HomeVideo from "../models/HomeVideo.model.js";
 import GalleryContent from "../models/GalleryContent.model.js";
+import Logo from "../models/LogoContent.model.js";
 
 export const getData = async () => {
   try {
@@ -32,6 +33,7 @@ export const getData = async () => {
     const about = await AboutContent.find({});
     const video = await HomeVideo.find({}).limit(1);
     const galleries = await GalleryContent.find({}).sort({ createdAt: -1 });
+    const logos = await Logo.find({}).limit(1);
 
     const aboutTopContent = about.length > 0 ? about : aboutData;
     const serviceContent = services.length > 0 ? services : servicesData;
@@ -52,7 +54,8 @@ export const getData = async () => {
             { url: "uploads/gallery/ga_41.jpg" },
             { url: "uploads/gallery/ga_42.jpg" },
           ];
-
+    const logoContent =
+      logos.length > 0 ? logos : [{ url: "assets/images/logoNew.png" }];
     return {
       heroContent,
       serviceContent,
@@ -65,6 +68,7 @@ export const getData = async () => {
       aboutTopContent,
       videoContent,
       galleryContent,
+      logoContent,
     };
   } catch (error) {
     console.log(error);

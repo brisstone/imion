@@ -15,6 +15,7 @@ import {
   deleteGoverning,
   createAbout,
   uploadHomeVideo,
+  uploadLogo,
 } from "../controllers/dashboard.js";
 import { contactUs } from "../controllers/contact.js";
 import { dashboardAbout } from "../controllers/dashboardAbout.js";
@@ -69,6 +70,7 @@ router.post("/create-about", isAuthenticated, createAbout);
 router.post("/create-contact-info", isAuthenticated, createContactInfo);
 
 router.post("/upload-home-video", isAuthenticated, uploadHomeVideo);
+router.post("/upload-logo", isAuthenticated, uploadLogo);
 
 router.post("/contact-form", contactUs);
 

@@ -1,21 +1,17 @@
-<div class="col-lg-3">
+<div class="col-lg-2">
   <div class="card">
-    <div class="card-header">Home Background</div>
+    <div class="card-header">Logo</div>
     <div class="card-body">
 
       <div>
-        <video autoplay muted loop id="bg-video" class="img-fluid">
-          <!-- <source src="assets/images/course-video.mp4" type="video/mp4" /> -->
-          <source src="<%- videoContent[0].url  %>">
-
-        </video>
+        <img src="<%- logoContent[0].url  %>" class="img-fluid" />
       </div>
-      <form id="home-video" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="_id" value="<%- videoContent[0]._id  %>">
+      <form id="main-logo" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="_id" value="<%- logoContent[0]._id  %>">
 
         <div class="mb-3">
-          <label for="video" class="form-label">Upload Video</label>
-          <input type="file" name="video" class="form-control" accept="video/*" required>
+          <label for="logo" class="form-label">Upload Logo</label>
+          <input type="file" name="logo" class="form-control" accept="image/*" required>
         </div>
 
         <div class="mb-3">
@@ -29,11 +25,11 @@
 </div>
 
 <script>
-  document.getElementById('home-video').addEventListener('submit', async (event) => {
+  document.getElementById('main-logo').addEventListener('submit', async (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
     try {
-      const response = await fetch('/upload-home-video', {
+      const response = await fetch('/upload-logo', {
         method: 'POST',
         body: formData,
       });

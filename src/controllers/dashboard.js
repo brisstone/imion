@@ -3,6 +3,7 @@ import DepartmentContent from "../models/DepartmentContent.model.js";
 import GoverningContent from "../models/GoverningContent.mode.js";
 import HeroContent from "../models/HeroContent.model.js";
 import HomeVideo from "../models/HomeVideo.model.js";
+import Logo from "../models/LogoContent.model.js";
 import ObjectiveContent from "../models/ObjectiveContent.model.js";
 
 import ServiceContent from "../models/ServiceContent.model.js";
@@ -93,6 +94,47 @@ export const uploadHomeVideo = async (req, res) => {
       await HomeVideo.findByIdAndUpdate(_id, { url: video }, { new: true });
     } else {
       const newView = new HomeVideo({ url: video });
+      await newView.save();
+    }
+
+    await renderDashboard(res, user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
+};
+
+export const uploadLogo = async (req, res) => {
+  const user = req.session.user;
+  let _id = req.body._id || "";
+  let logo;
+  try {
+    if (_id !== "") {
+      const previousLogo = await Logo.findById(_id);
+      if (previousLogo && previousLogo.url) {
+        fs.unlinkSync(`public/${previousLogo.url}`);
+      }
+    }
+
+    if (req.files && req.files.logo) {
+      const upload = req.files.logo;
+      logo = `uploads/logo/${Date.now()}_${upload.name}`;
+      await new Promise((resolve, reject) => {
+        upload.mv(`public/${logo}`, (err) => {
+          if (err) {
+            reject(new Error("File upload failed."));
+          } else {
+            resolve();
+          }
+        });
+      });
+    } else {
+      logo = "assets/images/logoNew.png";
+    }
+    if (_id !== "") {
+      await Logo.findByIdAndUpdate(_id, { url: logo }, { new: true });
+    } else {
+      const newView = new Logo({ url: logo });
       await newView.save();
     }
 
