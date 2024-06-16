@@ -17,12 +17,14 @@ export const home = async (req, res) => {
 
 export const about = async (req, res) => {
   try {
-    const { aboutTopContent, InfoContent, logoContent } = await getData();
+    const { aboutTopContent, InfoContent, logoContent, departmentContent } =
+      await getData();
     res.render("../src/views/pages/about.ejs", {
       pageTitle: "About Us",
       aboutTopContent,
       InfoContent,
       logoContent,
+      departmentContent,
     });
   } catch (error) {
     res.status(500).send({ message: error.message || "Error Occured" });

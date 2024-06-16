@@ -1,27 +1,31 @@
-<div class="col-lg-5">
+<div class="col-lg-6">
   <div class="card">
-    <div class="card-header">About Us</div>
+    <div class="card-header">About Department</div>
     <div class="card-body">
-      <h5 class="card-title">Hero content on the home page
+      <h5 class="card-title">Department on the About Us page
       </h5>
-      <form id="hero-content-form" method="post">
-        <input type="hidden" name="_id" value="<%= heroContent._id %>">
+      <form id="deparment-form" method="post" action="/create-department">
+        <input type="hidden" name="_id" value="<%= departmentContent[0]._id %>">
         <div class="mb-3">
-          <label for="title_one" class="form-label">Title one</label>
-          <input type="text" name="title_one" placeholder="Title One" value="<%= heroContent[0].title_one %>" class="form-control" required>
+          <label for="title" class="form-label">Title </label>
+          <input type="text" name="title" placeholder="Title" class="form-control" required value="<%= departmentContent[0].title %>">
         </div>
         <div class="mb-3">
-          <label for="title_two" class="form-label">Title two</label>
-          <input type="text" name="title_two" placeholder="Title Two" value="<%= heroContent[0].title_two %>" class="form-control" required>
+          <label for="summary" class="form-label">Summary</label>
+          <textarea name="summary" id="summary" rows="5" class="form-control">
+           <%= departmentContent[0].summary %>
+          </textarea>
         </div>
         <div class="mb-3">
-          <label for="content" class="form-label">Description</label>
-          <textarea class="form-control" id="content" rows="6" name="content"><%= heroContent[0].content %></textarea>
+          <label for="list" class="form-label">List of departments <span class="text-danger">(NOTE: use commas <strong>,</strong> to separate individual departments)</span></label>
+          <textarea class="form-control" id="lisr" rows="8" name="list">
+            <%= departmentContent[0].listString %>
+          </textarea>
 
         </div>
         <div class="mb-3">
           <button type="submit" class="btn btn-primary">
-            <%= (heroContent._id !=='' ) ? 'UPDATE' : 'CREATE' %>
+            UPDATE
           </button>
         </div>
       </form>
@@ -30,17 +34,18 @@
 </div>
 
 <script>
-  document.getElementById('hero-content-form').addEventListener('submit', async (event) => {
+  document.getElementById('deparment-form').addEventListener('submit', async (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
     try {
-      const response = await fetch('/hero-content', {
+      const response = await fetch('/create-department', {
         method: 'POST',
         body: formData,
       });
 
       if (response.ok) {
-        console.log('Form submitted successfully');
+        location.reload();
+        alert("Successfully submitted")
 
       } else {
         console.error('Error submitting the form');

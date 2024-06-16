@@ -19,6 +19,7 @@ import {
   createEvent,
   deleteEvent,
   createFact,
+  createDepartment,
 } from "../controllers/dashboard.js";
 import { contactUs } from "../controllers/contact.js";
 import { dashboardAbout } from "../controllers/dashboardAbout.js";
@@ -72,6 +73,7 @@ router.post("/delete-event", isAuthenticated, deleteEvent);
 
 router.post("/create-about", isAuthenticated, createAbout);
 router.post("/create-fact", isAuthenticated, createFact);
+router.post("/create-department", isAuthenticated, createDepartment);
 
 router.post("/create-contact-info", isAuthenticated, createContactInfo);
 

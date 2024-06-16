@@ -491,26 +491,31 @@ export const deleteAbout = async (req, res) => {
 };
 export const createDepartment = async (req, res) => {
   const user = req.session.user;
-  const { title, content_one, content_two } = req.body;
+  const { title, summary, list, _id } = req.body;
 
-  if (!title || !content_one || !content_two) {
+  if (!title || !summary || !list) {
     return res.status(400).send("All fields are required.");
   }
+
   try {
+    const listArray = list.split(",").map((item) => item.trim());
+
     if (_id !== "") {
       await DepartmentContent.findByIdAndUpdate(
         _id,
-        { title, content_one, content_two, content_three, content_four },
+        { title, summary, list: listArray, listString: list },
         { new: true }
       );
     } else {
       const created = new DepartmentContent({
         title,
-        content_one,
-        content_two,
+        summary,
+        list: listArray,
+        listString: list,
       });
       await created.save();
     }
+
     await renderDashboard(res, user);
   } catch (error) {
     console.error(error);
