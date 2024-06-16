@@ -26,6 +26,8 @@ import { dashboardAbout } from "../controllers/dashboardAbout.js";
 import {
   dashboardContact,
   createContactInfo,
+  createSocialMediaLinks,
+  deleteSocialMediaLinks,
 } from "../controllers/dashboardContact.js";
 import {
   dashboardGallery,
@@ -74,6 +76,9 @@ router.post("/delete-event", isAuthenticated, deleteEvent);
 router.post("/create-about", isAuthenticated, createAbout);
 router.post("/create-fact", isAuthenticated, createFact);
 router.post("/create-department", isAuthenticated, createDepartment);
+
+router.post("/create-social", isAuthenticated, createSocialMediaLinks);
+router.post("/delete-social", isAuthenticated, deleteSocialMediaLinks);
 
 router.post("/create-contact-info", isAuthenticated, createContactInfo);
 

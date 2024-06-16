@@ -1,0 +1,191 @@
+<div class="col-lg-4">
+  <div class="page-title">
+    <h3>Social Links
+      <button class="btn btn-outline-primary float-end " type="button" data-bs-toggle="modal" data-bs-target="#addSocial"><i class="fas fa-plus"></i>
+        New Social Link</button>
+    </h3>
+  </div>
+  <div class="box box-primary">
+    <div class="box-body">
+      <table width="100%" class="table table-hover" id="dataTables-socials">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Link</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>tiktok
+
+          <% socialContent.forEach((social, index)=> { %>
+          <tr>
+            <td>
+              <%= social.name %>
+
+            </td>
+            <td>
+              <%= social.url %>
+            </td>
+            <td class="text-end ">
+
+              <% if (social._id) { %>
+              <button type="button" data-bs-toggle="modal" data-bs-target="#<%=social._id %>" class="btn btn-outline-info btn-rounded" type="button"><i class="fas fa-pen"></i></button>
+              <a class="btn btn-outline-danger btn-rounded" type="button" data-bs-toggle="modal" data-bs-target="#<%= social._id+3000 %>"><i class="fas fa-trash"></i></a>
+              <% } %>
+
+
+              <!-- delete modal -->
+              <div class="modal fade" id="<%= social._id+3000%>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-md">
+                  <div class="modal-content">
+                    <div class="modal-header float-start">
+                      <h1 class="modal-title fs-5 " id="staticBackdropLabel">
+                        <%= social.name %>
+                      </h1>
+
+                    </div>
+                    <form action="/delete-social" method="POST" class="modal-body flex-row justify-content-center" id="delete">
+                      <input type="hidden" name="_id" value="<%= social._id %>">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-danger">
+                        DELETE
+                      </button>
+
+                    </form>
+
+                  </div>
+                </div>
+              </div>
+
+              <!-- end delete modal -->
+              <!-- update modal -->
+              <div class="modal fade " id="<%= social._id%>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                        Update : <%= social.name %>
+                      </h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <form action="/create-social" method="POST">
+                        <input type="hidden" name="_id" value="<%= social._id %>">
+                        <div class="mb-3">
+                          <label for="name" class="form-label float-start">Name </label>
+                          <input type="text" name="name" placeholder="Example facebook" class="form-control" value="<%= social.name %>" required>
+                        </div>
+                        <div class="mb-3">
+                          <label for="url" class="form-label float-start">Link </label>
+                          <input type="text" name="url" placeholder="Enter to Social Account" class="form-control" value="<%= social.url %>" required>
+                        </div>
+                        <div class="mb-3">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-primary">
+                            UPDATE
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+            <script>
+              document.getElementById(`${index + 1}`).addEventListener('submit', async (event) => {
+                event.preventDefault();
+                const formData = new FormData(event.target);
+                try {
+                  const response = await fetch('/create-social', {
+                    method: 'POST',
+                    body: formData,
+                  });
+                  if (response.ok) {
+                    event.target.reset();
+                    $('#staticBackdrop').modal('hide');
+                    location.reload();
+                  }
+                } catch (error) {
+                  console.error('Error submitting the form:', error);
+                }
+              });
+              document.getElementById(`${index + 200}`).addEventListener('submit', async (event) => {
+                event.preventDefault();
+                const formData = new FormData(event.target);
+                try {
+                  const response = await fetch('/delete-social', {
+                    method: 'POST',
+                    body: formData,
+                  });
+                  if (response.ok) {
+                    event.target.reset();
+                    $('#staticBackdrop').modal('hide');
+                    location.reload();
+                    alert('social deleted successfully')
+                  }
+                } catch (error) {
+                  console.error('Error submitting the form:', error);
+                }
+              });
+            </script>
+
+          </tr>
+
+          <% }); %>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="addSocial" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Create New social</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/create-social" method="POST" id="create-social">
+          <div class="mb-3">
+            <label for="name" class="form-label float-start">Name </label>
+            <input type="text" name="name" placeholder="Example facebook" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label for="url" class="form-label float-start">Link </label>
+            <input type="text" name="url" placeholder="Enter to Social Account" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">
+              CREATE
+            </button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  document.getElementById('create-social').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    try {
+      const response = await fetch('/create-social', {
+        method: 'POST',
+        body: formData,
+      });
+      if (response.ok) {
+
+        event.target.reset();
+        $('#addSocial').modal('hide');
+        location.reload();
+      }
+    } catch (error) {
+      return
+    }
+  });
+</script>

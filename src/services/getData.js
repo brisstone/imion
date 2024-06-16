@@ -21,6 +21,7 @@ import GalleryContent from "../models/GalleryContent.model.js";
 import Logo from "../models/LogoContent.model.js";
 import DepartmentContent from "../models/DepartmentContent.model.js";
 import { departmentData } from "../data/departmentData.js";
+import SocialMediaContent from "../models/SocialMediaContent.model.js";
 
 export const getData = async () => {
   try {
@@ -37,6 +38,7 @@ export const getData = async () => {
     const galleries = await GalleryContent.find({}).sort({ createdAt: -1 });
     const logos = await Logo.find({}).limit(1);
     const department = await DepartmentContent.find({}).limit(1);
+    const socials = await SocialMediaContent.find({});
 
     const aboutTopContent = about.length > 0 ? about : aboutData;
     const serviceContent = services.length > 0 ? services : servicesData;
@@ -62,6 +64,15 @@ export const getData = async () => {
           ];
     const logoContent =
       logos.length > 0 ? logos : [{ url: "assets/images/logoNew.png" }];
+    const socialContent =
+      socials.length > 0
+        ? socials
+        : [
+            { url: "http", name: "twitter" },
+            { url: "http", name: "facebook" },
+            { url: "http", name: "youtube" },
+            { url: "http", name: "instagram" },
+          ];
     return {
       heroContent,
       serviceContent,
@@ -76,6 +87,7 @@ export const getData = async () => {
       galleryContent,
       logoContent,
       departmentContent,
+      socialContent,
     };
   } catch (error) {
     console.log(error);
