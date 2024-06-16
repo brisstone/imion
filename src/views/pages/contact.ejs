@@ -110,7 +110,7 @@
             </div>
           </div>
           <div class="col-lg-6 wow fadeIn" data-wow-delay=".5s">
-            <div class="p-5 rounded contact-form">
+            <form method="post" id="contact-us-two" class="p-5 rounded contact-form">
               <div class="mb-4">
                 <input type="text" class="form-control border-0 py-3" placeholder="Your Name" />
               </div>
@@ -124,11 +124,11 @@
                 <textarea class="w-100 form-control border-0 py-3" rows="6" cols="10" placeholder="Message"></textarea>
               </div>
               <div class="text-start">
-                <button class="btn newBg text-white py-3 px-5" type="button">
+                <button class="btn newBg text-white py-3 px-5" type="submit">
                   Send Message
                 </button>
               </div>
-            </div>
+              </>
           </div>
         </div>
       </div>
@@ -159,6 +159,27 @@
     document.addEventListener("DOMContentLoaded", function() {
       var year = new Date().getFullYear();
       document.getElementById("current-year").textContent = year;
+    });
+  </script>
+
+  <script>
+    document.getElementById('contact-us-two').addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const formData = new FormData(event.target);
+      try {
+
+        const response = await fetch('/contact-form', {
+          method: 'POST',
+          body: formData,
+        });
+        if (response.ok) {
+          console.log('Form submitted successfully');
+          event.target.reset();
+          location.reload();
+        }
+      } catch (error) {
+        return
+      }
     });
   </script>
 </body>
