@@ -34,7 +34,7 @@
 <body>
   <%- include('../partials/topbanner') %>
 
-  <%- include('../partials/header') %>
+  <%- include('../partials/header', logoContent) %>
 
   <div class="container-fluid py-5 my-5">
     <div class="container py-5">
@@ -77,36 +77,18 @@
       <div class="col-lg-7 col-md-6 col-sm-12 wow fadeIn" data-wow-delay=".5s">
         <!-- <h5 class="text-primary margin">About Us</h5> -->
         <h2 class="margin">
-          DEPARTMENTS
+          <%= departmentContent[0].title  %>
         </h2>
         <p style="margin-bottom: 20px;">
-          The DG IMION is assisted by Executive Directors (EDs) who head the various directorates and
-          other
-          functional departments of the Institute. The various departments of the IMION are as
-          follows:
+          <%= departmentContent[0].summary  %>
         </p>
-
         <ul style="list-style-type: square; padding-left: 40px; color: #000000; font-size: 14px;">
-          <li style="margin-bottom: 10px;">&#8226;&nbsp;&nbsp; Centre for Maritime Research and
-            Development.
+          <% departmentContent[0].list.forEach(element => { %>
+          <li style="margin-bottom: 10px;">&#8226;&nbsp;&nbsp;
+            <%= element  %>
           </li>
-          <li style="margin-bottom: 10px;">&#8226;&nbsp;&nbsp; Directorate of Maritime Strategic
-            Studies.</li>
-          <li style="margin-bottom: 10px;">&#8226;&nbsp;&nbsp; Directorate of Administration.</li>
-          <li style="margin-bottom: 10px;">&#8226;&nbsp;&nbsp; Directorate of Human Resource
-            Development.</li>
-          <li style="margin-bottom: 10px;">&#8226;&nbsp;&nbsp; Directorate of Maritime Security and
-            Operations.</li>
-          <li style="margin-bottom: 10px;">&#8226;&nbsp;&nbsp; Directorate of Information and
-            Communication
-            Technology.</li>
-          <li style="margin-bottom: 10px;">&#8226;&nbsp;&nbsp; Directorate of History Library and
-            Archives.
-          </li>
-          <li style="margin-bottom: 10px;">&#8226;&nbsp;&nbsp; Directorate of Finance and Accounts.
-          </li>
+          <% }) %>
         </ul>
-
       </div>
     </div>
   </div>

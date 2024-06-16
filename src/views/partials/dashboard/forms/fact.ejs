@@ -1,0 +1,51 @@
+<div class="col-lg-4">
+  <div class="card">
+    <div class="card-header">Fact Content</div>
+    <div class="card-body">
+      <h5 class="card-title">Update Fact Content</h5>
+      <form id="fact-content-form" method="post">
+        <input type="hidden" name="_id" value="<%= factContent[0]._id %>">
+        <div class="mb-3">
+          <label for="board" class="form-label">Board</label>
+          <input type="number" name="board" placeholder="Board" value="<%= factContent[0].board %>" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label for="mandate" class="form-label">Mandate</label>
+          <input type="number" name="mandate" placeholder="Mandate" value="<%= factContent[0].mandate %>" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label for="departments" class="form-label">Departments</label>
+          <input type="number" name="departments" placeholder="Departments" value="<%= factContent[0].department %>" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label for="directorate" class="form-label">Directorate</label>
+          <input type="number" name="directorate" placeholder="Directorate" value="<%= factContent[0].directorate %>" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <button type="submit" class="btn btn-primary">
+            <%= (factContent[0]._id !== '') ? 'UPDATE' : 'CREATE' %>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.getElementById('fact-content-form').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    try {
+      const response = await fetch('/create-fact', {
+        method: 'POST',
+        body: formData,
+      });
+      if (response.ok) {
+        location.reload();
+        alert("Submit success!");
+      }
+    } catch (error) {
+      console.error('Error submitting the form:', error);
+    }
+  });
+</script>

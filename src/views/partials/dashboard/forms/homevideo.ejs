@@ -4,7 +4,7 @@
     <div class="card-body">
 
       <div>
-        <video autoplay muted loop id="bg-video" width="400">
+        <video autoplay muted loop id="bg-video" class="img-fluid">
           <!-- <source src="assets/images/course-video.mp4" type="video/mp4" /> -->
           <source src="<%- videoContent[0].url  %>">
 
@@ -15,7 +15,7 @@
 
         <div class="mb-3">
           <label for="video" class="form-label">Upload Video</label>
-          <input type="file" name="video" class="form-control" accept="video/" required>
+          <input type="file" name="video" class="form-control" accept="video/*" required>
         </div>
 
         <div class="mb-3">

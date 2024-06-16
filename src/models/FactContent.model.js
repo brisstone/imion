@@ -2,8 +2,22 @@ import mongoose from "mongoose";
 
 const FactContentSchema = new mongoose.Schema(
   {
-    title: { type: String, required: true },
-    value: { type: Number, required: true },
+    board: {
+      type: Number,
+      required: true,
+    },
+    mandate: {
+      type: Number,
+      required: true,
+    },
+    departments: {
+      type: Number,
+      required: true,
+    },
+    directorate: {
+      type: Number,
+      required: true,
+    },
   },
   { timestamps: true }
 );

@@ -1,0 +1,48 @@
+<div class="col-lg-4">
+  <div class="card">
+    <div class="card-header">Logo</div>
+    <div class="card-body">
+
+      <div>
+        <img src="<%- logoContent[0].url  %>" class="img-fluid" />
+      </div>
+      <form id="main-logo" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="_id" value="<%- logoContent[0]._id  %>">
+
+        <div class="mb-3">
+          <label for="logo" class="form-label">Upload Logo</label>
+          <input type="file" name="logo" class="form-control" accept="image/*" required>
+        </div>
+
+        <div class="mb-3">
+          <button type="submit" class="btn btn-primary">
+            UpLoad
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.getElementById('main-logo').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    try {
+      const response = await fetch('/upload-logo', {
+        method: 'POST',
+        body: formData,
+      });
+      if (response.ok) {
+        location.reload()
+        alert("Successfully updated")
+        console.log('Form submitted successfully');
+
+      } else {
+        console.error('Error submitting the form');
+      }
+    } catch (error) {
+      console.error('Error submitting the form:', error);
+    }
+  });
+</script>

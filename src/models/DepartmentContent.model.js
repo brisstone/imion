@@ -6,11 +6,15 @@ const DepartmentContentSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    content_one: {
+    summary: {
       type: String,
       required: true,
     },
-    content_two: [
+    listString: {
+      type: String,
+      required: true,
+    },
+    list: [
       {
         type: String,
         required: true,

@@ -1,12 +1,15 @@
 import AboutContent from "../models/AboutContent.model.js";
 import DepartmentContent from "../models/DepartmentContent.model.js";
+import FactContent from "../models/FactContent.model.js";
 import GoverningContent from "../models/GoverningContent.mode.js";
 import HeroContent from "../models/HeroContent.model.js";
 import HomeVideo from "../models/HomeVideo.model.js";
+import Logo from "../models/LogoContent.model.js";
 import ObjectiveContent from "../models/ObjectiveContent.model.js";
 
 import ServiceContent from "../models/ServiceContent.model.js";
 import TrusteeContent from "../models/TrusteeContent.model.js";
+import UpcomingEventContent from "../models/UpcomingEventContent.model.js";
 import { getData } from "../services/getData.js";
 
 import fs from "fs";
@@ -93,6 +96,47 @@ export const uploadHomeVideo = async (req, res) => {
       await HomeVideo.findByIdAndUpdate(_id, { url: video }, { new: true });
     } else {
       const newView = new HomeVideo({ url: video });
+      await newView.save();
+    }
+
+    await renderDashboard(res, user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
+};
+
+export const uploadLogo = async (req, res) => {
+  const user = req.session.user;
+  let _id = req.body._id || "";
+  let logo;
+  try {
+    if (_id !== "") {
+      const previousLogo = await Logo.findById(_id);
+      if (previousLogo && previousLogo.url) {
+        fs.unlinkSync(`public/${previousLogo.url}`);
+      }
+    }
+
+    if (req.files && req.files.logo) {
+      const upload = req.files.logo;
+      logo = `uploads/logo/${Date.now()}_${upload.name}`;
+      await new Promise((resolve, reject) => {
+        upload.mv(`public/${logo}`, (err) => {
+          if (err) {
+            reject(new Error("File upload failed."));
+          } else {
+            resolve();
+          }
+        });
+      });
+    } else {
+      logo = "assets/images/logoNew.png";
+    }
+    if (_id !== "") {
+      await Logo.findByIdAndUpdate(_id, { url: logo }, { new: true });
+    } else {
+      const newView = new Logo({ url: logo });
       await newView.save();
     }
 
@@ -333,26 +377,36 @@ export const deleteGoverning = async (req, res) => {
 
 export const createEvent = async (req, res) => {
   const user = req.session.user;
-  const { title, description, imageUrl, month, day, _id } = req.body;
+  const { title, description, month, day, _id } = req.body;
+  let url;
 
-  if (!title || !description || !imageUrl || !month || !day) {
+  if (!title || !description || !month || !day) {
     return res
       .status(400)
       .send("Title, description, imageUrl, month, and day are required.");
   }
 
   try {
+    if (req.files && req.files.imageUrl) {
+      const upload = req.files.imageUrl;
+      url = `uploads/events/${Date.now()}_${upload.name}`;
+      upload.mv(`public/${url}`, async (err) => {
+        if (err) {
+          return res.status(500).send("File upload failed.");
+        }
+      });
+    }
     if (_id) {
-      await UpcomingEvent.findByIdAndUpdate(
+      await UpcomingEventContent.findByIdAndUpdate(
         _id,
-        { title, description, imageUrl, month, day },
+        { title, description, month, day },
         { new: true }
       );
     } else {
-      const newEvent = new UpcomingEvent({
+      const newEvent = new UpcomingEventContent({
         title,
         description,
-        imageUrl,
+        imageUrl: url,
         month,
         day,
       });
@@ -370,13 +424,14 @@ export const deleteEvent = async (req, res) => {
   const user = req.session.user;
 
   try {
-    const event = await UpcomingEvent.findById(_id);
+    const event = await UpcomingEventContent.findById(_id);
 
     if (!event) {
       return res.status(404).send("Event not found.");
     }
 
-    await UpcomingEvent.findByIdAndDelete(_id);
+    await fs.unlinkSync(`public/${event.imageUrl}`);
+    await UpcomingEventContent.findByIdAndDelete(_id);
     await renderDashboard(res, user);
   } catch (error) {
     console.error(error);
@@ -436,29 +491,71 @@ export const deleteAbout = async (req, res) => {
 };
 export const createDepartment = async (req, res) => {
   const user = req.session.user;
-  const { title, content_one, content_two } = req.body;
+  const { title, summary, list, _id } = req.body;
 
-  if (!title || !content_one || !content_two) {
+  if (!title || !summary || !list) {
     return res.status(400).send("All fields are required.");
   }
+
   try {
+    const listArray = list.split(",").map((item) => item.trim());
+
     if (_id !== "") {
       await DepartmentContent.findByIdAndUpdate(
         _id,
-        { title, content_one, content_two, content_three, content_four },
+        { title, summary, list: listArray, listString: list },
         { new: true }
       );
     } else {
       const created = new DepartmentContent({
         title,
-        content_one,
-        content_two,
+        summary,
+        list: listArray,
+        listString: list,
       });
       await created.save();
     }
+
     await renderDashboard(res, user);
   } catch (error) {
     console.error(error);
+    res.status(500).send("Internal server error.");
+  }
+};
+
+export const createFact = async (req, res) => {
+  try {
+    const user = req.session.user;
+    const { _id, board, mandate, departments, directorate } = req.body;
+    if (!board || !mandate || !departments || !directorate) {
+      return res
+        .status(400)
+        .json({ error: "Please provide all required fields" });
+    }
+
+    if (_id !== "") {
+      await FactContent.findByIdAndUpdate(
+        _id,
+        {
+          board: Number(board),
+          mandate: Number(mandate),
+          departments: Number(departments),
+          directorate: Number(directorate),
+        },
+        { new: true }
+      );
+    } else {
+      const newFact = new FactContent({
+        board: Number(board),
+        mandate: Number(mandate),
+        departments: Number(departments),
+        directorate: Number(directorate),
+      });
+
+      await newFact.save();
+    }
+    await renderDashboard(res, user);
+  } catch (error) {
     res.status(500).send("Internal server error.");
   }
 };

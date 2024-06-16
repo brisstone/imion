@@ -17,6 +17,10 @@ import UpcomingEventContent from "../models/UpcomingEventContent.model.js";
 import { aboutData } from "../data/aboutData.js";
 import AboutContent from "../models/AboutContent.model.js";
 import HomeVideo from "../models/HomeVideo.model.js";
+import GalleryContent from "../models/GalleryContent.model.js";
+import Logo from "../models/LogoContent.model.js";
+import DepartmentContent from "../models/DepartmentContent.model.js";
+import { departmentData } from "../data/departmentData.js";
 
 export const getData = async () => {
   try {
@@ -25,11 +29,14 @@ export const getData = async () => {
     const objectives = await ObjectiveContent.find({});
     const trustees = await TrusteeContent.find({});
     const governing = await GoverningContent.find({});
-    const facts = await FactContent.find({});
-    const info = await ContactInfoContent.find({});
+    const facts = await FactContent.find({}).limit(1);
+    const info = await ContactInfoContent.find({}).limit(1);
     const events = await UpcomingEventContent.find({});
-    const about = await AboutContent.find({});
+    const about = await AboutContent.find({}).limit(1);
     const video = await HomeVideo.find({}).limit(1);
+    const galleries = await GalleryContent.find({}).sort({ createdAt: -1 });
+    const logos = await Logo.find({}).limit(1);
+    const department = await DepartmentContent.find({}).limit(1);
 
     const aboutTopContent = about.length > 0 ? about : aboutData;
     const serviceContent = services.length > 0 ? services : servicesData;
@@ -40,9 +47,21 @@ export const getData = async () => {
     const heroContent = heros.length > 0 ? heros : heroData;
     const InfoContent = info.length > 0 ? info : contactInfoContent;
     const upcomingEventsContent = events.length > 0 ? events : upcomingEvents;
+    const departmentContent =
+      department.length > 0 ? department : departmentData;
+
     const videoContent =
       video.length > 0 ? video : [{ url: "/assets//videos/videpo_22.mp4" }];
 
+    const galleryContent =
+      galleries.length > 0
+        ? galleries
+        : [
+            { url: "uploads/gallery/ga_41.jpg" },
+            { url: "uploads/gallery/ga_42.jpg" },
+          ];
+    const logoContent =
+      logos.length > 0 ? logos : [{ url: "assets/images/logoNew.png" }];
     return {
       heroContent,
       serviceContent,
@@ -54,6 +73,9 @@ export const getData = async () => {
       upcomingEventsContent,
       aboutTopContent,
       videoContent,
+      galleryContent,
+      logoContent,
+      departmentContent,
     };
   } catch (error) {
     console.log(error);

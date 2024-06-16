@@ -32,6 +32,9 @@
         <li>
           <a href="/dashboard-contact"><i class="fas fa-table"></i>Contact</a>
         </li>
+        <li>
+          <a href="/dashboard-gallery"><i class="fas fa-table"></i>Gallery</a>
+        </li>
 
       </ul>
 
@@ -75,21 +78,20 @@
       <div class="content">
         <div class="container-fluid">
           <div class="row">
-            <%- include('../partials/dashboard/forms/hero.ejs', heroContent)%>
+            <%- include('../partials/dashboard/forms/logo.ejs', logoContent)%>
             <%- include('../partials/dashboard/forms/homevideo.ejs', videoContent)%>
-
-
+            <%- include('../partials/dashboard/forms/fact.ejs', factContent) %>
+            <%- include('../partials/dashboard/forms/hero.ejs', heroContent)%>
             <%- include('../partials/dashboard/tables/service.ejs', serviceContent) %>
-
             <%- include('../partials/dashboard/tables/objective.ejs', objectiveContent) %>
-
             <%- include('../partials/dashboard/tables/trustee.ejs', trusteeContent) %>
-
             <%- include('../partials/dashboard/tables/governing.ejs', governingContent) %>
+            <%- include('../partials/dashboard/tables/event.ejs', upcomingEventsContent) %>
           </div>
         </div>
       </div>
     </div>
+  </div>
   </div>
   <script src="asset/vendor/jquery/jquery.min.js"></script>
   <script src="asset/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
