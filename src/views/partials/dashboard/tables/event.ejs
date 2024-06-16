@@ -1,0 +1,223 @@
+<div class="col-lg-6">
+  <div class="page-title">
+    <h3>Home Page Events
+      <button class="btn btn-outline-primary float-end " type="button" data-bs-toggle="modal" data-bs-target="#createEvent"><i class="fas fa-plus"></i>
+        Add New Event</button>
+    </h3>
+  </div>
+  <div class="box box-primary">
+    <div class="box-body">
+      <table width="100%" class="table table-hover" id="dataTables-trustee">
+        <thead>
+          <tr>
+            <th>Image</th>
+            <th>Title</th>
+
+            <th>Month</th>
+            <th>Day</th>
+            <th>Description</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <% upcomingEventsContent.forEach((objective, index)=> { %>
+          <tr>
+            <td>
+              <img src="<%= objective.imageUrl %>" class="img-thumbnail" width="40" height="40" alt="<%= objective.name %>">
+            </td>
+            <td>
+              <%= objective.title %>
+            </td>
+
+            <td>
+              <%= objective.month %>
+            </td>
+            <td>
+              <%= objective.day %>
+            </td>
+            <td>
+              <%= objective.description %>
+            </td>
+
+            <td class="text-end ">
+
+              <% if (objective._id) { %>
+              <button type="button" data-bs-toggle="modal" data-bs-target="#<%= objective._id %>" class="btn btn-outline-info btn-rounded" type="button"><i class="fas fa-pen"></i></button>
+              <a class="btn btn-outline-danger btn-rounded" type="button" data-bs-toggle="modal" data-bs-target="#<%= objective._id%>"><i class="fas fa-trash"></i></a>
+              <% } %>
+              <!-- delete modal -->
+              <div class="modal fade" id="<%= objective._id%>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-md">
+                  <div class="modal-content">
+                    <div class="modal-header float-start">
+                      <h1 class="modal-title fs-5 " id="staticBackdropLabel">
+                        <%= objective.title %>
+                      </h1>
+
+                    </div>
+                    <form action="/delete-event" method="POST" class="modal-body flex-row justify-content-center" id="delete">
+                      <input type="hidden" name="_id" value="<%= objective._id %>">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-danger">
+                        DELETE
+                      </button>
+
+                    </form>
+
+                  </div>
+                </div>
+              </div>
+
+              <!-- end delete modal -->
+              <!-- update modal -->
+              <div class="modal fade " id="<%= objective._id %>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                        <%= objective.name %>
+                      </h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <form action="/create-trustee" method="POST">
+                        <input type="hidden" name="_id" value="<%= objective._id %>">
+                        <div class="mb-3">
+                          <label for="name" class="form-label float-start">Title and Name</label>
+                          <input type="text" name="name" placeholder="Enter Title and Name" class="form-control" required value="<%-objective.name %>">
+                        </div>
+
+                        <div class="mb-3">
+                          <label for="info" class="form-label float-start">Membership</label>
+                          <input type="text" name="info" placeholder="Enter Membership" class="form-control" value="<%-objective.info %>" required>
+                        </div>
+                        <div class="mb-3">
+
+                        </div>
+                        <div class="mb-3">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-primary">
+                            UPDATE
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+            <script>
+              document.getElementById(`${objective._id}`).addEventListener('submit', async (event) => {
+                event.preventDefault();
+                const formData = new FormData(event.target);
+                try {
+                  const response = await fetch('/create-trustee', {
+                    method: 'POST',
+                    body: formData,
+                  });
+                  if (response.ok) {
+                    event.target.reset();
+                    $('#staticBackdrop').modal('hide');
+                    location.reload();
+                  }
+                } catch (error) {
+                  console.error('Error submitting the form:', error);
+                }
+              });
+              document.getElementById(`${objective._id}`).addEventListener('submit', async (event) => {
+                event.preventDefault();
+                const formData = new FormData(event.target);
+                try {
+                  const response = await fetch('/delete-event', {
+                    method: 'POST',
+                    body: formData,
+                  });
+                  if (response.ok) {
+                    event.target.reset();
+                    $('#staticBackdrop').modal('hide');
+                    location.reload();
+                  }
+                } catch (error) {
+                  console.error('Error submitting the form:', error);
+                }
+              });
+            </script>
+
+          </tr>
+
+          <% }); %>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="createEvent" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Add New Event</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form method="POST" id="create-event" enctype="multipart/form-data">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="title" class="form-label float-start">Title</label>
+            <input type="text" name="title" placeholder="Enter Title" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label for="month" class="form-label float-start">Month</label>
+            <input type="text" name="month" placeholder="Enter Month" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label for="day" class="form-label float-start">Day</label>
+            <input type="text" name="day" placeholder="Enter Day" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label for="imageUrl" class="form-label float-start">Image</label>
+            <input type="file" name="imageUrl" placeholder="Upload" value="" class="form-control" required accept="image/*">
+          </div>
+          <div class="mb-3">
+            <label for="description" class="form-label float-start">Description</label>
+            <textarea name="description" placeholder="Enter Description" class="form-control" required></textarea>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">
+            CREATE
+          </button>
+
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<script>
+  document.getElementById('create-event').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    console.log("event creation")
+    try {
+      const response = await fetch('/create-event', {
+        method: 'POST',
+        body: formData,
+      });
+      if (response.ok) {
+
+        event.target.reset();
+        $('#createEvent').modal('hide');
+        location.reload();
+      }
+    } catch (error) {
+      return
+    }
+  });
+</script>

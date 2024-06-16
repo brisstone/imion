@@ -16,6 +16,8 @@ import {
   createAbout,
   uploadHomeVideo,
   uploadLogo,
+  createEvent,
+  deleteEvent,
 } from "../controllers/dashboard.js";
 import { contactUs } from "../controllers/contact.js";
 import { dashboardAbout } from "../controllers/dashboardAbout.js";
@@ -64,6 +66,8 @@ router.post("/delete-trustee", isAuthenticated, deleteTrustee);
 
 router.post("/create-governing", isAuthenticated, createGoverning);
 router.post("/delete-governing", isAuthenticated, deleteGoverning);
+router.post("/create-event", isAuthenticated, createEvent);
+router.post("/delete-event", isAuthenticated, deleteEvent);
 
 router.post("/create-about", isAuthenticated, createAbout);
 

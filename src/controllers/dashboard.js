@@ -8,6 +8,7 @@ import ObjectiveContent from "../models/ObjectiveContent.model.js";
 
 import ServiceContent from "../models/ServiceContent.model.js";
 import TrusteeContent from "../models/TrusteeContent.model.js";
+import UpcomingEventContent from "../models/UpcomingEventContent.model.js";
 import { getData } from "../services/getData.js";
 
 import fs from "fs";
@@ -375,26 +376,36 @@ export const deleteGoverning = async (req, res) => {
 
 export const createEvent = async (req, res) => {
   const user = req.session.user;
-  const { title, description, imageUrl, month, day, _id } = req.body;
+  const { title, description, month, day, _id } = req.body;
+  let url;
 
-  if (!title || !description || !imageUrl || !month || !day) {
+  if (!title || !description || !month || !day) {
     return res
       .status(400)
       .send("Title, description, imageUrl, month, and day are required.");
   }
 
   try {
+    if (req.files && req.files.imageUrl) {
+      const upload = req.files.imageUrl;
+      url = `uploads/events/${Date.now()}_${upload.name}`;
+      upload.mv(`public/${url}`, async (err) => {
+        if (err) {
+          return res.status(500).send("File upload failed.");
+        }
+      });
+    }
     if (_id) {
-      await UpcomingEvent.findByIdAndUpdate(
+      await UpcomingEventContent.findByIdAndUpdate(
         _id,
-        { title, description, imageUrl, month, day },
+        { title, description, month, day },
         { new: true }
       );
     } else {
-      const newEvent = new UpcomingEvent({
+      const newEvent = new UpcomingEventContent({
         title,
         description,
-        imageUrl,
+        imageUrl: url,
         month,
         day,
       });
@@ -412,13 +423,14 @@ export const deleteEvent = async (req, res) => {
   const user = req.session.user;
 
   try {
-    const event = await UpcomingEvent.findById(_id);
+    const event = await UpcomingEventContent.findById(_id);
 
     if (!event) {
       return res.status(404).send("Event not found.");
     }
 
-    await UpcomingEvent.findByIdAndDelete(_id);
+    await fs.unlinkSync(`public/${event.imageUrl}`);
+    await UpcomingEventContent.findByIdAndDelete(_id);
     await renderDashboard(res, user);
   } catch (error) {
     console.error(error);
