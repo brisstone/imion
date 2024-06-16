@@ -17,11 +17,12 @@ export const home = async (req, res) => {
 
 export const about = async (req, res) => {
   try {
-    const { aboutTopContent, InfoContent } = await getData();
+    const { aboutTopContent, InfoContent, logoContent } = await getData();
     res.render("../src/views/pages/about.ejs", {
       pageTitle: "About Us",
       aboutTopContent,
       InfoContent,
+      logoContent,
     });
   } catch (error) {
     res.status(500).send({ message: error.message || "Error Occured" });
@@ -30,11 +31,12 @@ export const about = async (req, res) => {
 
 export const gallery = async (req, res) => {
   try {
-    const { galleryContent, InfoContent } = await getData();
+    const { galleryContent, InfoContent, logoContent } = await getData();
     res.render("../src/views/pages/gallery.ejs", {
       pageTitle: "Gallery",
       galleryContent,
       InfoContent,
+      logoContent,
     });
   } catch (error) {
     res.status(500).send({ message: error.message || "Error Occured" });

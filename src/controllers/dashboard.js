@@ -1,5 +1,6 @@
 import AboutContent from "../models/AboutContent.model.js";
 import DepartmentContent from "../models/DepartmentContent.model.js";
+import FactContent from "../models/FactContent.model.js";
 import GoverningContent from "../models/GoverningContent.mode.js";
 import HeroContent from "../models/HeroContent.model.js";
 import HomeVideo from "../models/HomeVideo.model.js";
@@ -513,6 +514,43 @@ export const createDepartment = async (req, res) => {
     await renderDashboard(res, user);
   } catch (error) {
     console.error(error);
+    res.status(500).send("Internal server error.");
+  }
+};
+
+export const createFact = async (req, res) => {
+  try {
+    const user = req.session.user;
+    const { _id, board, mandate, departments, directorate } = req.body;
+    if (!board || !mandate || !departments || !directorate) {
+      return res
+        .status(400)
+        .json({ error: "Please provide all required fields" });
+    }
+
+    if (_id !== "") {
+      await FactContent.findByIdAndUpdate(
+        _id,
+        {
+          board: Number(board),
+          mandate: Number(mandate),
+          departments: Number(departments),
+          directorate: Number(directorate),
+        },
+        { new: true }
+      );
+    } else {
+      const newFact = new FactContent({
+        board: Number(board),
+        mandate: Number(mandate),
+        departments: Number(departments),
+        directorate: Number(directorate),
+      });
+
+      await newFact.save();
+    }
+    await renderDashboard(res, user);
+  } catch (error) {
     res.status(500).send("Internal server error.");
   }
 };
