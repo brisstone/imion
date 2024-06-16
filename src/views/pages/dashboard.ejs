@@ -33,7 +33,7 @@
           <a href="/dashboard-contact"><i class="fas fa-table"></i>Contact</a>
         </li>
         <li>
-          <a href="/dashboard-gallery"><i class="fas fa-table"></i>Gallery</a>
+          <a href="/dashboard-gallery"><i class="fas fa-camera"></i>Gallery</a>
         </li>
 
       </ul>
@@ -81,15 +81,66 @@
             <%- include('../partials/dashboard/forms/logo.ejs', logoContent)%>
             <%- include('../partials/dashboard/forms/homevideo.ejs', videoContent)%>
             <%- include('../partials/dashboard/forms/fact.ejs', factContent) %>
-            <%- include('../partials/dashboard/forms/hero.ejs', heroContent)%>
-            <%- include('../partials/dashboard/tables/service.ejs', serviceContent) %>
-            <%- include('../partials/dashboard/tables/objective.ejs', objectiveContent) %>
-            <%- include('../partials/dashboard/tables/trustee.ejs', trusteeContent) %>
-            <%- include('../partials/dashboard/tables/governing.ejs', governingContent) %>
-            <%- include('../partials/dashboard/tables/event.ejs', upcomingEventsContent) %>
+
+
+
+
+
+          </div>
+          <div class="container-fluid">
+            <!-- insert -->
+            <div class="box box-primary">
+              <div class="box-body">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                  <li class="nav-item">
+                    <a class="nav-link active" id="hero-tab" data-bs-toggle="tab" href="#hero" role="tab" aria-controls="hero" aria-selected="true">Hero</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="service-tab" data-bs-toggle="tab" href="#service" role="tab" aria-controls="service" aria-selected="false">Service</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="objective-tab" data-bs-toggle="tab" href="#objective" role="tab" aria-controls="objective" aria-selected="false">Objective</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="trustee-tab" data-bs-toggle="tab" href="#trustee" role="tab" aria-controls="trustee" aria-selected="false">Trustee</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="governing-tab" data-bs-toggle="tab" href="#governing" role="tab" aria-controls="governing" aria-selected="false">Governing</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="event-tab" data-bs-toggle="tab" href="#event" role="tab" aria-controls="event" aria-selected="false">Events</a>
+                  </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                  <div class="tab-pane fade active show" id="hero" role="tabpanel" aria-labelledby="hero-tab">
+                    <%- include('../partials/dashboard/forms/hero.ejs', heroContent)%>
+                  </div>
+                  <div class="tab-pane fade  show" id="service" role="tabpanel" aria-labelledby="service-tab">
+                    <%- include('../partials/dashboard/tables/service.ejs', serviceContent) %>
+                  </div>
+                  <div class="tab-pane fade show" id="objective" role="tabpanel" aria-labelledby="objective-tab">
+                    <%- include('../partials/dashboard/tables/objective.ejs', objectiveContent) %>
+                  </div>
+                  <div class="tab-pane fade show" id="trustee" role="tabpanel" aria-labelledby="trustee-tab">
+                    <%- include('../partials/dashboard/tables/trustee.ejs', trusteeContent) %>
+                  </div>
+                  <div class="tab-pane fade show" id="governing" role="tabpanel" aria-labelledby="governing-tab">
+                    <%- include('../partials/dashboard/tables/governing.ejs', governingContent) %>
+                  </div>
+                  <div class="tab-pane fade show" id="event" role="tabpanel" aria-labelledby="event-tab">
+                    <%- include('../partials/dashboard/tables/event.ejs', upcomingEventsContent) %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- end insert -->
           </div>
         </div>
       </div>
+      <!-- ABOVE GOOD -->
+
+
+
     </div>
   </div>
   </div>

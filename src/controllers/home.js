@@ -25,6 +25,7 @@ export const about = async (req, res) => {
       InfoContent,
       logoContent,
       departmentContent,
+      socialContent,
     });
   } catch (error) {
     res.status(500).send({ message: error.message || "Error Occured" });
@@ -33,12 +34,14 @@ export const about = async (req, res) => {
 
 export const gallery = async (req, res) => {
   try {
-    const { galleryContent, InfoContent, logoContent } = await getData();
+    const { galleryContent, InfoContent, logoContent, socialContent } =
+      await getData();
     res.render("../src/views/pages/gallery.ejs", {
       pageTitle: "Gallery",
       galleryContent,
       InfoContent,
       logoContent,
+      socialContent,
     });
   } catch (error) {
     res.status(500).send({ message: error.message || "Error Occured" });

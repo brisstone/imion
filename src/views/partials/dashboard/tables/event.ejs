@@ -1,4 +1,4 @@
-<div class="col-lg-6">
+<div class="col-lg-12">
   <div class="page-title">
     <h3>Home Page Events
       <button class="btn btn-outline-primary float-end " type="button" data-bs-toggle="modal" data-bs-target="#createEvent"><i class="fas fa-plus"></i>
@@ -24,7 +24,7 @@
           <% upcomingEventsContent.forEach((objective, index)=> { %>
           <tr>
             <td>
-              <img src="<%= objective.imageUrl %>" class="img-thumbnail" width="40" height="40" alt="<%= objective.name %>">
+              <img src="<%= objective.imageUrl %>" class="img-thumbnail" width="70" height="70" alt="<%= objective.name %>">
             </td>
             <td>
               <%= objective.title %>
