@@ -43,7 +43,7 @@
             <td class="text-end ">
 
               <% if (objective._id) { %>
-              <button type="button" data-bs-toggle="modal" data-bs-target="#<%= objective._id %>" class="btn btn-outline-info btn-rounded" type="button"><i class="fas fa-pen"></i></button>
+              <button type="button" data-bs-toggle="modal" data-bs-target="#<%= objective._id+1000 %>" class="btn btn-outline-info btn-rounded" type="button"><i class="fas fa-pen"></i></button>
               <a class="btn btn-outline-danger btn-rounded" type="button" data-bs-toggle="modal" data-bs-target="#<%= objective._id%>"><i class="fas fa-trash"></i></a>
               <% } %>
               <!-- delete modal -->
@@ -71,48 +71,55 @@
 
               <!-- end delete modal -->
               <!-- update modal -->
-              <div class="modal fade " id="<%= objective._id %>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+              <div class="modal fade " id="<%= objective._id +1000%>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
                       <h1 class="modal-title fs-5" id="staticBackdropLabel">
-                        <%= objective.name %>
+                        <%= objective.title %>
                       </h1>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
-                      <form action="/create-trustee" method="POST">
+                    <form method="POST" action="/create-event" id="<%=objective._id %>" enctype="multipart/form-data">
+                      <div class="modal-body">
                         <input type="hidden" name="_id" value="<%= objective._id %>">
                         <div class="mb-3">
-                          <label for="name" class="form-label float-start">Title and Name</label>
-                          <input type="text" name="name" placeholder="Enter Title and Name" class="form-control" required value="<%-objective.name %>">
+                          <label for="title" class="form-label float-start">Title</label>
+                          <input type="text" name="title" placeholder="Enter Title" class="form-control" required value="<%= objective.title %>">
+                        </div>
+                        <div class="mb-3">
+                          <label for="month" class="form-label float-start">Month</label>
+                          <input type="text" name="month" placeholder="Enter Month" class="form-control" required value="<%= objective.month %>">
+                        </div>
+                        <div class="mb-3">
+                          <label for="day" class="form-label float-start">Day</label>
+                          <input type="text" name="day" placeholder="Enter Day" class="form-control" required value="<%= objective.day %>">
+                        </div>
+                        <div class="mb-3">
+                          <label for="description" class="form-label float-start">Description</label>
+                          <textarea name="description" placeholder="Enter Description" class="form-control" required><%= objective.description %></textarea>
                         </div>
 
-                        <div class="mb-3">
-                          <label for="info" class="form-label float-start">Membership</label>
-                          <input type="text" name="info" placeholder="Enter Membership" class="form-control" value="<%-objective.info %>" required>
-                        </div>
-                        <div class="mb-3">
+                      </div>
+                      <div class="modal-footer">
 
-                        </div>
-                        <div class="mb-3">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                          <button type="submit" class="btn btn-primary">
-                            UPDATE
-                          </button>
-                        </div>
-                      </form>
-                    </div>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">
+                          CREATE
+                        </button>
+
+                      </div>
+                    </form>
                   </div>
                 </div>
               </div>
             </td>
             <script>
-              document.getElementById(`${objective._id}`).addEventListener('submit', async (event) => {
+              document.getElementById(`${objective._id+1000}`).addEventListener('submit', async (event) => {
                 event.preventDefault();
                 const formData = new FormData(event.target);
                 try {
-                  const response = await fetch('/create-trustee', {
+                  const response = await fetch('/create-event', {
                     method: 'POST',
                     body: formData,
                   });
