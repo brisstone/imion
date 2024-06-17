@@ -65,12 +65,12 @@ export const deleteGalleryImage = async (req, res) => {
   }
 };
 
-export const gallerySeeder = async (req, res) => {
-  const length = 42;
-  for (let i = 1; i <= length; i++) {
-    const img = `uploads/gallery/ga_${i.toString().padStart(2, "0")}.jpg`;
-    const newView = new GalleryContent({ url: img });
-    await newView.save();
-  }
-  return res.status(200).json("seeding success");
-};
+// export const gallerySeeder = async (req, res) => {
+//   const length = 42;
+//   for (let i = 1; i <= length; i++) {
+//     const img = `uploads/gallery/ga_${i.toString().padStart(2, "0")}.jpg`;
+//     const newView = new GalleryContent({ url: img });
+//     await newView.save();
+//   }
+//   return res.status(200).json("seeding success");
+// };

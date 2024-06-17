@@ -1,6 +1,6 @@
 import express from "express";
 const router = express.Router();
-import { home, about, gallery, contact } from "../controllers/home.js";
+import { home, about, gallery, contact, event } from "../controllers/home.js";
 import { loginView, login, register, logout } from "../controllers/auth.js";
 import {
   dashboard,
@@ -31,10 +31,10 @@ import {
 } from "../controllers/dashboardContact.js";
 import {
   dashboardGallery,
-  gallerySeeder,
   deleteGalleryImage,
   addGalleryImage,
 } from "../controllers/downloadGal.js";
+import { seed } from "../controllers/seeder.js";
 const isAuthenticated = (req, res, next) => {
   if (req.session.user) {
     next();
@@ -50,6 +50,7 @@ router.get("/gallery", gallery);
 router.get("/contact", contact);
 router.get("/login", loginView);
 router.post("/login", login);
+router.get("/events", event);
 router.get("/logout", logout);
 router.get("/register", register);
 router.get("/dashboard", isAuthenticated, dashboard);
@@ -87,5 +88,7 @@ router.post("/upload-logo", isAuthenticated, uploadLogo);
 
 router.post("/contact-form", contactUs);
 
-router.get("/gallery-seeder", gallerySeeder);
+// router.get("/gallery-seeder", gallerySeeder);
+router.get("/seed-extra", seed);
+
 export default router;

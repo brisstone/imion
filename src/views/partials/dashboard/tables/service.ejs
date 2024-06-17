@@ -27,8 +27,11 @@
               <%= service.description %>
             </td>
             <td class="text-end ">
+              <% if (service._id) { %>
               <button type="button" data-bs-toggle="modal" data-bs-target="#<%= index+1 %>" class="btn btn-outline-info btn-rounded" type="button"><i class="fas fa-pen"></i></button>
               <a class="btn btn-outline-danger btn-rounded" type="button" data-bs-toggle="modal" data-bs-target="#<%= index+200 %>"><i class="fas fa-trash"></i></a>
+              <% } %>
+
 
               <!-- delete modal -->
               <div class="modal fade" id="<%= index+200%>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
