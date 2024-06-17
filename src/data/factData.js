@@ -2,7 +2,7 @@ export const factsData = [
   {
     board: 20,
     mandate: 7,
-    department: 8,
+    departments: 8,
     directorate: 8,
   },
 ];

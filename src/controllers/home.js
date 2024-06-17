@@ -17,8 +17,13 @@ export const home = async (req, res) => {
 
 export const about = async (req, res) => {
   try {
-    const { aboutTopContent, InfoContent, logoContent, departmentContent } =
-      await getData();
+    const {
+      aboutTopContent,
+      InfoContent,
+      logoContent,
+      departmentContent,
+      socialContent,
+    } = await getData();
     res.render("../src/views/pages/about.ejs", {
       pageTitle: "About Us",
       aboutTopContent,
@@ -59,3 +64,17 @@ export const contact = async (req, res) => {
     res.status(500).send({ message: error.message || "Error Occured" });
   }
 };
+
+
+export const event = async (req, res) => {
+  try {
+    const data = await getData();
+    res.render("../src/views/pages/events.ejs", {
+      pageTitle: "Event",
+      ...data,
+    });
+  } catch (error) {
+    res.status(500).send({ message: error.message || "Error Occured" });
+  }
+};
+

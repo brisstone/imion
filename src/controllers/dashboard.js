@@ -159,7 +159,7 @@ export const createService = async (req, res) => {
   try {
     if (req.files && req.files.icon) {
       const upload = req.files.icon;
-      icon = `uploads/${Date.now()}_${upload.name}`;
+      icon = `uploads/service/${Date.now()}_${upload.name}`;
       upload.mv(`public/${icon}`, async (err) => {
         if (err) {
           return res.status(500).send("File upload failed.");
@@ -215,7 +215,6 @@ export const createObject = async (req, res) => {
     const buttonColor = req.body.buttonColor === "on" ? true : false;
 
     if (_id !== "" && _id !== undefined) {
-      console.log("update");
       await ObjectiveContent.findByIdAndUpdate(
         _id,
         { title, description, buttonLabel, buttonLink, buttonColor },
@@ -273,8 +272,8 @@ export const createTrustee = async (req, res) => {
   try {
     if (req.files && req.files.imageUrl) {
       const upload = req.files.imageUrl;
-      imageUrl = `uploads/${Date.now()}_${upload.name}`;
-      upload.mv(`public/${imageUrl}`, async (err) => {
+      imageUrl = `uploads/trustee/${Date.now()}_${upload.name}`;
+      upload.mv(`public/$ console.log("update");{imageUrl}`, async (err) => {
         if (err) {
           return res.status(500).send("File upload failed.");
         }
@@ -330,7 +329,7 @@ export const createGoverning = async (req, res) => {
   try {
     if (req.files && req.files.imageUrl) {
       const upload = req.files.imageUrl;
-      imageUrl = `uploads/${Date.now()}_${upload.name}`;
+      imageUrl = `uploads/governing/${Date.now()}_${upload.name}`;
       upload.mv(`public/${imageUrl}`, async (err) => {
         if (err) {
           return res.status(500).send("File upload failed.");

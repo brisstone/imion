@@ -29,7 +29,6 @@ export const login = async (req, res) => {
     }
   } catch (err) {
     console.log(err);
-    res.redirect("/login");
   }
 };
 export const registerView = async (req, res) => {
