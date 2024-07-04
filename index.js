@@ -7,11 +7,17 @@ import session from "express-session";
 import router from "./src/routes/index.js";
 import connectToMongoDB from "./src/db/connect.js";
 import methodOverride from "method-override";
-
+import path from "path";
 import flash from "connect-flash";
+import { fileURLToPath } from "url";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 
 const app = express();
 const port = process.env.PORT || 3000;
+
+
 
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -31,6 +37,7 @@ app.use(flash());
 app.use(fileupload());
 app.use(express.static("public"));
 
+app.set("views", path.join(__dirname, "src/views"));
 app.set("view engine", "ejs");
 
 app.use("/", router);

@@ -4,7 +4,8 @@ import { contactForm, contactInfo } from "../data/contactForm.js";
 export const home = async (req, res) => {
   try {
     const data = await getData();
-    res.render("../src/views/pages/index.ejs", {
+    console.log(data, 'data')
+    res.render("pages/index.ejs", {
       pageTitle: "Home",
       ...data,
       contactForm,
@@ -24,7 +25,7 @@ export const about = async (req, res) => {
       departmentContent,
       socialContent,
     } = await getData();
-    res.render("../src/views/pages/about.ejs", {
+    res.render("pages/about.ejs", {
       pageTitle: "About Us",
       aboutTopContent,
       InfoContent,
