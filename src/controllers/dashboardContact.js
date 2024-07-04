@@ -5,7 +5,7 @@ import { getData } from "../services/getData.js";
 export const renderDashboard = async (res, user) => {
   try {
     const data = await getData();
-    return res.render("../src/views/pages/dashboard-contact.ejs", {
+    return res.render("pages/dashboard-contact.ejs", {
       pageTitle: "Dashboard Contact",
       ...data,
       user,

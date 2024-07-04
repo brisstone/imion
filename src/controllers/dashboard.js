@@ -17,7 +17,7 @@ import fs from "fs";
 export const renderDashboard = async (res, user) => {
   try {
     const data = await getData();
-    return res.render("../src/views/pages/dashboard.ejs", {
+    return res.render("pages/dashboard.ejs", {
       pageTitle: "Dashboard",
       ...data,
       user,

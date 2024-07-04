@@ -6,7 +6,7 @@ export const loginView = async (req, res) => {
   try {
     const { socialContent } = await getData();
     // res.send({status: true, message: "nice"})
-    res.render("../src/views/pages/login.ejs", {
+    res.render("pages/login.ejs", {
       pageTitle: "Login",
       socialContent,
     });

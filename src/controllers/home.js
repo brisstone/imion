@@ -42,7 +42,7 @@ export const gallery = async (req, res) => {
   try {
     const { galleryContent, InfoContent, logoContent, socialContent } =
       await getData();
-    res.render("../src/views/pages/gallery.ejs", {
+    res.render("pages/gallery.ejs", {
       pageTitle: "Gallery",
       galleryContent,
       InfoContent,
@@ -57,7 +57,7 @@ export const gallery = async (req, res) => {
 export const contact = async (req, res) => {
   try {
     const data = await getData();
-    res.render("../src/views/pages/contact.ejs", {
+    res.render("pages/contact.ejs", {
       pageTitle: "Contact",
       ...data,
     });
@@ -70,7 +70,7 @@ export const contact = async (req, res) => {
 export const event = async (req, res) => {
   try {
     const data = await getData();
-    res.render("../src/views/pages/events.ejs", {
+    res.render("pages/events.ejs", {
       pageTitle: "Event",
       ...data,
     });

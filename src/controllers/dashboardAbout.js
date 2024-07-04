@@ -3,7 +3,7 @@ import { getData } from "../services/getData.js";
 export const renderDashboard = async (res, user) => {
   try {
     const data = await getData();
-    return res.render("../src/views/pages/dashboard-about.ejs", {
+    return res.render("pages/dashboard-about.ejs", {
       pageTitle: "Dashboard About",
       ...data,
       user,

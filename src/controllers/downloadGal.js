@@ -5,7 +5,7 @@ import fs from "fs";
 export const renderDashboard = async (res, user) => {
   try {
     const data = await getData();
-    return res.render("../src/views/pages/dashboard-gallery.ejs", {
+    return res.render("pages/dashboard-gallery.ejs", {
       pageTitle: "Dashboard Gallery",
       ...data,
       user,
