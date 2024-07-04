@@ -3,7 +3,7 @@ import fileupload from "express-fileupload";
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 dotenv.config();
-import session from "express-session";
+import session from "cookie-session";
 import router from "./src/routes/index.js";
 import connectToMongoDB from "./src/db/connect.js";
 import methodOverride from "method-override";
