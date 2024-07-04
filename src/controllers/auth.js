@@ -5,11 +5,11 @@ import { getData } from "../services/getData.js";
 export const loginView = async (req, res) => {
   try {
     const { socialContent } = await getData();
-    res.send({status: true, message: "nice"})
-    // res.render("../src/views/pages/login.ejs", {
-    //   pageTitle: "Login",
-    //   socialContent,
-    // });
+    // res.send({status: true, message: "nice"})
+    res.render("../src/views/pages/login.ejs", {
+      pageTitle: "Login",
+      socialContent,
+    });
   } catch (error) {
     res.satus(500).send({ message: error.message || "Error Occured" });
   }
