@@ -1,6 +1,13 @@
 import express from "express";
 const router = express.Router();
-import { home, about, gallery, contact, event } from "../controllers/home.js";
+import {
+  home,
+  about,
+  gallery,
+  contact,
+  event,
+  aboutLogo,
+} from "../controllers/home.js";
 import { loginView, login, register, logout } from "../controllers/auth.js";
 import {
   dashboard,
@@ -46,6 +53,7 @@ const isAuthenticated = (req, res, next) => {
 
 router.get("/", home);
 router.get("/about", about);
+router.get("/about-logo", aboutLogo);
 router.get("/gallery", gallery);
 router.get("/contact", contact);
 router.get("/login", loginView);

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>
+    <%= pageTitle %>
+  </title>
+  <link rel="icon" type="image/ico" href="/assets/img/favicon.ico" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <meta content="" name="keywords" />
+  <meta content="" name="description" />
+
+  <!-- Google Web Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Saira:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Icon Font Stylesheet -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/fontawesome.css">
+  <!-- Libraries Stylesheet -->
+  <link href="assets/lib/animate/animate.min.css" rel="stylesheet" />
+  <link href="assets/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet" />
+
+  <!-- Customized Bootstrap Stylesheet -->
+  <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- Template Stylesheet -->
+  <link href="assets/css/templatemo-edu-meeting.css" rel="stylesheet" />
+</head>
+
+<body>
+  <%- include('../partials/topbanner') %>
+  <%- include('../partials/header', logoContent) %>
+  <section style="background-color: white !important;" class="heading-page2 header-text" id="top">
+    <div style="background-color: white !important;" class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <h2 style=" color: black; font-weight: 700; margin-bottom: 20px ;">ELEMENTS OF OUR LOGO</h2>
+          <img style="" src="assets/images/logoExp.png" alt="logo" />
+
+          <h3 style=" color: black; margin-top: 10px; font-weight: 600;">MEANING OF SYMBOLS</h3>
+          <div style="margin-bottom: 20px;  text-align: left;">
+            <p style="font-size: 17px; margin-top: 15px;"><b>The Wheel -</b> A ship’s wheel, in spite of the size of a ship, is what enables the ship to follow a desired direction. Accordingly, The Wheel in the IMION logo signifies ‘moving along the pathway of maritime knowledge towards prosperity’. </p>
+            <p style="font-size: 17px; margin-top: 15px;"><b>The Gold Circles -</b> The Gold Circles symbolise the Institute’s ‘multidimensional and interdisciplinary approach to learning’ about the golden opportunities that abound in the blue economy.</p>
+            <p style="font-size: 17px; margin-top: 15px;"> <b>The Telescope -</b> The Telescope in the logo serves as an inspiration for the Institutes ‘vision for advancing blue prosperity in Nigeria and beyond’.</p>
+            <p style="font-size: 17px; margin-top: 15px;"><b>The Pen -</b> The Pen in the logo is to motivate the Institute to always reckon with the ‘power of change through research, innovation and advocacy’. </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- Footer Start -->
+  <section class="contact-us" id="contact">
+    <%- include('../partials/home/contacts.ejs', InfoContent) %>
+
+    <%- include('../partials/footer') %>
+  </section>
+  <!-- Footer End -->
+
+  <!-- Back to Top -->
+  <a href="#" class="btn newBg btn-square rounded-circle back-to-top"><i class="fa fa-arrow-up text-white"></i></a>
+
+  <!-- JavaScript Libraries -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="lib/wow/wow.min.js"></script>
+  <script src="lib/easing/easing.min.js"></script>
+  <script src="lib/waypoints/waypoints.min.js"></script>
+  <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+  <!-- Template Javascript -->
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var year = new Date().getFullYear();
+      document.getElementById("current-year").textContent = year;
+    });
+  </script>
+</body>
+
+</html>

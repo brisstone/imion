@@ -4,9 +4,23 @@ import { contactForm, contactInfo } from "../data/contactForm.js";
 export const home = async (req, res) => {
   try {
     const data = await getData();
-    console.log(data, 'data')
+    console.log(data, "data");
     res.render("pages/index.ejs", {
       pageTitle: "Home",
+      ...data,
+      contactForm,
+      contactInfo,
+    });
+  } catch (error) {
+    res.status(500).send({ message: error.message || "Error Occured" });
+  }
+};
+
+export const aboutLogo = async (req, res) => {
+  try {
+    const data = await getData();
+    res.render("pages/about-logo", {
+      pageTitle: "About IMION Logo",
       ...data,
       contactForm,
       contactInfo,
@@ -66,7 +80,6 @@ export const contact = async (req, res) => {
   }
 };
 
-
 export const event = async (req, res) => {
   try {
     const data = await getData();
@@ -78,4 +91,3 @@ export const event = async (req, res) => {
     res.status(500).send({ message: error.message || "Error Occured" });
   }
 };
-
