@@ -84,29 +84,29 @@
 
 <!-- DYNAMIC -->
 <section class="services">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="owl-service-item owl-carousel">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="owl-service-item owl-carousel">
 
-                    <% serviceContent.forEach(service=> { %>
-                        <div class="item">
-                            <div class="icon">
-                                <img src="<%= service.icon %>" alt="<%= service.title %>">
-                            </div>
-                            <div class="down-content">
-                                <h4>
-                                    <%= service.title %>
-                                </h4>
-                                <p>
-                                    <%= service.description %>
-                                </p>
-                            </div>
-                        </div>
-                        <% }); %>
-
-                </div>
+          <% serviceContent.forEach(service=> { %>
+          <div class="item" style="height: 300px;">
+            <div class="icon">
+              <img src="<%= service.icon %>" alt="<%= service.title %>">
             </div>
+            <div class="down-content">
+              <h4>
+                <%= service.title %>
+              </h4>
+              <p>
+                <%= service.description %>
+              </p>
+            </div>
+          </div>
+          <% }); %>
+
         </div>
+      </div>
     </div>
+  </div>
 </section>
