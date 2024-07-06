@@ -40,7 +40,7 @@ export const governingData = [
     imageUrl: "assets/images/board/bd_16.jpeg",
   },
   {
-    name: "R Adm NN Ayafa (rtd) (rtd)",
+    name: "R Adm NN Ayafa (rtd)",
     info: "Member GB",
     imageUrl: "assets/images/board/bd_17.jpeg",
   },
